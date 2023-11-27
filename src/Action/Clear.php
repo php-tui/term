@@ -9,7 +9,7 @@ use PhpTui\Term\ClearType;
 
 final class Clear implements Action
 {
-    public function __construct(public ClearType $clearType)
+    public function __construct(public readonly ClearType $clearType)
     {
     }
     public function __toString(): string

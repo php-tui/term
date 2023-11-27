@@ -54,18 +54,18 @@ final class AnsiPainter implements Painter
             return;
         }
         if ($action instanceof SetForegroundColor && $action->color === Colors::Reset) {
-            $this->writer->write($this->esc('39m'));
+            $this->writer->write($this->csi('39m'));
 
             return;
         }
         if ($action instanceof SetBackgroundColor && $action->color === Colors::Reset) {
-            $this->writer->write($this->esc('49m'));
+            $this->writer->write($this->csi('49m'));
 
             return;
         }
 
         if ($action instanceof EnableMouseCapture) {
-            $this->writer->write(implode('', array_map(fn (string $code): string => $this->esc($code), $action->enable ? [
+            $this->writer->write(implode('', array_map(fn (string $code): string => $this->csi($code), $action->enable ? [
                 // Normal tracking: Send mouse X & Y on button press and release
                 '?1000h',
                 // Button-event tracking: Report button motion events (dragging)
@@ -88,7 +88,12 @@ final class AnsiPainter implements Painter
             return;
         }
 
-        $this->writer->write($this->esc(match (true) {
+        if ($action instanceof SetTerminalTitle) {
+            $this->writer->write($this->osc(sprintf("0;%s\x07", $action->title)));
+            return;
+        }
+
+        $this->writer->write($this->csi(match (true) {
             $action instanceof SetForegroundColor => sprintf('%dm', $this->colorIndex($action->color, false)),
             $action instanceof SetBackgroundColor => sprintf('%dm', $this->colorIndex($action->color, true)),
             $action instanceof SetRgbBackgroundColor => sprintf('48;2;%d;%d;%dm', $action->r, $action->g, $action->b),
@@ -99,7 +104,6 @@ final class AnsiPainter implements Painter
             $action instanceof Reset => '0m',
             $action instanceof ScrollUp => 'S',
             $action instanceof ScrollDown => 'T',
-            $action instanceof SetTerminalTitle => sprintf("0;%s\x07", $action->title),
             $action instanceof Clear => match ($action->clearType) {
                 ClearType::All => '2J',
                 ClearType::Purge => '3J',
@@ -176,8 +180,20 @@ final class AnsiPainter implements Painter
             Attribute::Reverse => 27,
         };
     }
-    private function esc(string $action): string
+
+    /**
+     * Control sequence introducer
+     */
+    private function csi(string $action): string
     {
         return sprintf("\x1B[%s", $action);
+    }
+
+    /**
+     * Operating system command
+     */
+    private function osc(string $action): string
+    {
+        return sprintf("\x1B]%s", $action);
     }
 }

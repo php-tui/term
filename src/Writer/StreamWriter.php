@@ -24,6 +24,7 @@ final class StreamWriter implements Writer
     {
         $length = strlen($bytes);
         $written = 0;
+
         // fwrite does not always write the entire stream to STDOUT keep
         // writing until it's done
         while ($written < $length) {
