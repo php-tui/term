@@ -17,6 +17,8 @@ use PhpTui\Term\Action\MoveCursorToColumn;
 use PhpTui\Term\Action\MoveCursorToRow;
 use PhpTui\Term\Action\MoveCursorUp;
 use PhpTui\Term\Action\PrintString;
+use PhpTui\Term\Action\RestoreCursorPosition;
+use PhpTui\Term\Action\SaveCursorPosition;
 use PhpTui\Term\Action\SetTerminalTitle;
 
 /**
@@ -137,6 +139,8 @@ final class AnsiParser
         return match ($buffer[1]) {
             '[' => $this->parseCsi($buffer, $more),
             ']' => $this->parseOsc($buffer, $more),
+            '7' => new SaveCursorPosition(),
+            '8' => new RestoreCursorPosition(),
             default => Actions::printString($buffer[0])
         };
     }
