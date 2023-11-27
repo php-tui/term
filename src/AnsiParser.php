@@ -481,7 +481,7 @@ final class AnsiParser
         return match($type) {
             'S' => new ScrollUp($amount),
             'T' => new ScrollDown($amount),
-            default => throw ParseError::couldNotParseBuffer($buffer,  'Could not parse scroll'),
+            default => throw ParseError::couldNotParseBuffer($buffer, 'Could not parse scroll'),
         };
     }
 }
