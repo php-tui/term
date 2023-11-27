@@ -7,12 +7,23 @@ namespace PhpTui\Term;
 use PhpTui\Term\Action\AlternateScreenEnable;
 use PhpTui\Term\Action\Clear;
 use PhpTui\Term\Action\CursorShow;
+use PhpTui\Term\Action\EnableCursorBlinking;
 use PhpTui\Term\Action\EnableLineWrap;
 use PhpTui\Term\Action\EnableMouseCapture;
 use PhpTui\Term\Action\MoveCursor;
+use PhpTui\Term\Action\MoveCursorDown;
+use PhpTui\Term\Action\MoveCursorLeft;
+use PhpTui\Term\Action\MoveCursorNextLine;
+use PhpTui\Term\Action\MoveCursorPrevLine;
+use PhpTui\Term\Action\MoveCursorRight;
+use PhpTui\Term\Action\MoveCursorToColumn;
+use PhpTui\Term\Action\MoveCursorToRow;
+use PhpTui\Term\Action\MoveCursorUp;
 use PhpTui\Term\Action\PrintString;
 use PhpTui\Term\Action\RequestCursorPosition;
 use PhpTui\Term\Action\Reset;
+use PhpTui\Term\Action\RestoreCursorPosition;
+use PhpTui\Term\Action\SaveCursorPosition;
 use PhpTui\Term\Action\ScrollDown;
 use PhpTui\Term\Action\ScrollUp;
 use PhpTui\Term\Action\SetBackgroundColor;
@@ -163,55 +174,69 @@ final class Actions
         return new EnableLineWrap($enable);
     }
 
-    public static function moveCursorNextLine(int $int)
+    public static function moveCursorNextLine(int $nbLines)
     {
+        return new MoveCursorNextLine($nbLines);
     }
 
-    public static function moveCursorPreviousLine(int $int)
+    public static function moveCursorPreviousLine(int $nbLines)
     {
+        return new MoveCursorPrevLine($nbLines);
     }
 
     public static function moveCursorToColumn(int $int)
     {
-    }
-
-    public static function moveCursorUp(int $int)
-    {
+        return new MoveCursorToColumn($int);
     }
 
     public static function moveCursorToRow(int $int)
     {
+        return new MoveCursorToRow($int);
     }
+
+    public static function moveCursorUp(int $int)
+    {
+        return new MoveCursorUp($int);
+    }
+
 
     public static function moveCursorRight(int $int)
     {
+        return new MoveCursorRight($int);
     }
 
     public static function moveCursorDown(int $int)
     {
+        return new MoveCursorDown($int);
     }
 
     public static function moveCursorLeft(int $int)
     {
+        return new MoveCursorLeft($int);
     }
 
     public static function saveCursorPosition()
     {
+        return new SaveCursorPosition();
     }
 
     public static function restoreCursorPosition()
     {
+        return new RestoreCursorPosition();
     }
 
     public static function enableCusorBlinking()
     {
+        return new EnableCursorBlinking(true);
     }
 
     public static function disableCursorBlinking()
     {
+        return new EnableCursorBlinking(false);
     }
 
-    public static function setCursorStyle($argument0)
+    public static function setCursorStyle(CursorStyle $cursorStyle)
     {
+        return new SetCursorStyle($cursorStyle);
     }
 }
