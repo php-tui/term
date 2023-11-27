@@ -13,6 +13,7 @@ use PhpTui\Term\Action\MoveCursor;
 use PhpTui\Term\Action\PrintString;
 use PhpTui\Term\Action\RequestCursorPosition;
 use PhpTui\Term\Action\Reset;
+use PhpTui\Term\Action\ScrollUp;
 use PhpTui\Term\Action\SetBackgroundColor;
 use PhpTui\Term\Action\SetForegroundColor;
 use PhpTui\Term\Action\SetModifier;
@@ -94,6 +95,7 @@ final class AnsiPainter implements Painter
             $action instanceof AlternateScreenEnable => sprintf('?1049%s', $action->enable ? 'h' : 'l'),
             $action instanceof MoveCursor => sprintf('%d;%dH', $action->line, $action->col),
             $action instanceof Reset => '0m',
+            $action instanceof ScrollUp => 'S',
             $action instanceof Clear => match ($action->clearType) {
                 ClearType::All => '2J',
                 ClearType::Purge => '3J',

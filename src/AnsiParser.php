@@ -143,6 +143,7 @@ final class AnsiParser
             '?' => $this->parsePrivateModes($buffer),
             'J' => Actions::clear(ClearType::FromCursorDown),
             'K' => Actions::clear(ClearType::UntilNewLine),
+            'S' => Actions::scrollUp(),
             default => throw new ParseError(sprintf('Could not parse CSI sequence: %s', json_encode(implode('', $buffer)))),
         };
 
