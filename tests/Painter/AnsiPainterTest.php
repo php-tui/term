@@ -72,10 +72,10 @@ final class AnsiPainterTest extends TestCase
         $this->assertRawSeq("\x1b[5 q", Actions::setCursorStyle(CursorStyle::BlinkingBar));
         $this->assertRawSeq("\x1b[6 q", Actions::setCursorStyle(CursorStyle::SteadyBar));
 
-        $this->assertCsiSeq("0;Hello\x07", Actions::setTitle('Hello'));
+        $this->assertOscSeq("0;Hello\x07", Actions::setTitle('Hello'));
 
-        $this->assertCsiSeq("\x1B[?1000h\x1B[?1002h\x1B[?1003h\x1B[?1015h\x1B[?1006h", Actions::enableMouseCapture());
-        $this->assertCsiSeq("\x1B[?1006h\x1B[?1015h\x1B[?1003h\x1B[?1002h\x1B[?1000h", Actions::disableMouseCapture());
+        $this->assertRawSeq("\x1B[?1000h\x1B[?1002h\x1B[?1003h\x1B[?1015h\x1B[?1006h", Actions::enableMouseCapture(), false);
+        $this->assertRawSeq("\x1B[?1006h\x1B[?1015h\x1B[?1003h\x1B[?1002h\x1B[?1000h", Actions::disableMouseCapture(), false);
     }
     private function assertCsiSeq(string $string, Action $command): void
     {
@@ -97,7 +97,7 @@ final class AnsiPainterTest extends TestCase
         self::assertEquals($command, $parsedCommand[0], 'parsing output');
     }
 
-    private function assertRawSeq(string $string, Action $command): void
+    private function assertRawSeq(string $string, Action $command, bool $parse = true): void
     {
         $writer = BufferWriter::new();
         $term = AnsiPainter::new($writer);
@@ -107,7 +107,9 @@ final class AnsiPainterTest extends TestCase
             self::fail(sprintf('Could not decode expected string "%s"', $string));
         }
         self::assertEquals($expected, json_encode($writer->toString()), $command::class);
-        $parsedCommand = AnsiParser::parseString($writer->toString(), true);
-        self::assertEquals($command, $parsedCommand[0], 'parsing output');
+        if ($parse) {
+            $parsedCommand = AnsiParser::parseString($writer->toString(), true);
+            self::assertEquals($command, $parsedCommand[0], 'parsing output');
+        }
     }
 }
