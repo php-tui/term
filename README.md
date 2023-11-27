@@ -17,7 +17,6 @@ Table of Contents
     - [Terminal Size](#terminal-size)
     - [Raw Mode](#raw-mode)
     - [ANSI parsing](#parsing)
-    - [Contributing](#parsing)
 - [Contributing](#contributing)
 
 Installation
