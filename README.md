@@ -24,7 +24,7 @@ Installation
 ------------
 
 ```
-$ composer require phptui/term
+$ composer require php-tui/term
 ```
 
 Requirements
