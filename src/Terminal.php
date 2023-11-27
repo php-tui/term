@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PhpTui\Term;
 
 use PhpTui\Term\EventProvider\AggregateEventProvider;
-use PhpTui\Term\EventProvider\LoadedEventProvider;
+use PhpTui\Term\EventProvider\SignalEventProvider;
 use PhpTui\Term\EventProvider\SyncTtyEventProvider;
 use PhpTui\Term\InformationProvider\AggregateInformationProvider;
 use PhpTui\Term\InformationProvider\SizeFromEnvVarProvider;
@@ -48,6 +48,7 @@ final class Terminal
             $rawMode ?? SttyRawMode::new(),
             $eventProvider ?? new AggregateEventProvider([
                 SyncTtyEventProvider::new(),
+                SignalEventProvider::registered(),
             ]),
         );
     }

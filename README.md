@@ -11,6 +11,7 @@ Low-level terminal control library **heavily** inspired by
 - Cursor:
   - [x] Hide or show the cursor
   - [x] Retrieve and change the cursor position
+  - [ ] Cursor up / down / start of line etc
   - [x] Store and restore the cursor position
   - [x] Enable/disable cursor blinking
 - Styling:
@@ -29,10 +30,8 @@ Low-level terminal control library **heavily** inspired by
 - Events:
   - [x] Input events (e.g. keyboard events)
   - [x] Mouse (position, press, release, button, drag)
-  - [ ] Terminal resize events
+  - [x] Terminal resize events
   - [x] Modifiers (shift, alt, ctrl) support for mouse and keys
-
-
 
 Installation
 ------------
