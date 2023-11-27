@@ -7,6 +7,14 @@ namespace PhpTui\Term;
 use PhpTui\Term\Action\AlternateScreenEnable;
 use PhpTui\Term\Action\Clear;
 use PhpTui\Term\Action\EnableLineWrap;
+use PhpTui\Term\Action\MoveCursorDown;
+use PhpTui\Term\Action\MoveCursorLeft;
+use PhpTui\Term\Action\MoveCursorNextLine;
+use PhpTui\Term\Action\MoveCursorPrevLine;
+use PhpTui\Term\Action\MoveCursorRight;
+use PhpTui\Term\Action\MoveCursorToColumn;
+use PhpTui\Term\Action\MoveCursorToRow;
+use PhpTui\Term\Action\MoveCursorUp;
 use PhpTui\Term\Action\PrintString;
 use PhpTui\Term\Action\SetTerminalTitle;
 
@@ -148,7 +156,7 @@ final class AnsiParser
             'K' => Actions::clear(ClearType::UntilNewLine),
             'S' => Actions::scrollUp(),
             'T' => Actions::scrollDown(),
-            default => throw new ParseError(sprintf('Could not parse CSI sequence: %s', json_encode(implode('', $buffer)))),
+            default => throw ParseError::couldNotParseOffset($buffer, 2, 'Could not parse CSI sequence'),
         };
 
     }
@@ -175,10 +183,12 @@ final class AnsiParser
             'H' => $this->parseCursorPosition($buffer),
             'J', 'K' => $this->parseClear($buffer),
             'n' => Actions::requestCursorPosition(),
-            default => throw new ParseError(sprintf(
-                'Do not know how to parse CSI sequence: %s',
-                json_encode(implode('', $buffer))
-            ))
+            'E', 'F', 'G', 'd', 'A', 'C', 'B', 'D' => $this->parseCursorMovement($buffer),
+            default => throw ParseError::couldNotParseOffset(
+                $buffer,
+                intval(array_key_last($buffer)),
+                'Do not know how to parse CSI sequence'
+            ),
         };
     }
 
@@ -402,7 +412,28 @@ final class AnsiParser
         return match($last) {
             'h' => new EnableLineWrap(true),
             'l' => new EnableLineWrap(false),
-            default => throw ParseError::couldNotParseOffset($buffer, array_key_last($buffer), 'Could not parse line wrapping'),
+            default => throw ParseError::couldNotParseOffset($buffer, intval(array_key_last($buffer)), 'Could not parse line wrapping'),
+        };
+    }
+
+    /**
+     * @param string[] $buffer
+     */
+    private function parseCursorMovement(array $buffer): Action
+    {
+        $type = array_pop($buffer);
+        $amount = intval(implode('', array_slice($buffer, 2)));
+
+        return match($type) {
+            'E' => new MoveCursorNextLine($amount),
+            'F' => new MoveCursorPrevLine($amount),
+            'G' => new MoveCursorToColumn($amount - 1),
+            'd' => new MoveCursorToRow($amount - 1),
+            'A' => new MoveCursorUp($amount),
+            'C' => new MoveCursorRight($amount),
+            'B' => new MoveCursorDown($amount),
+            'D' => new MoveCursorLeft($amount),
+            default => throw ParseError::couldNotParseBuffer($buffer, 'Could not parse cursor movement'),
         };
     }
 }

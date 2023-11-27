@@ -49,7 +49,9 @@ final class AnsiPainterTest extends TestCase
         $this->assertCsiSeq('T', Actions::scrollDown());
         $this->assertCsiSeq('?7h', Actions::lineWrap(true));
         $this->assertCsiSeq('?7l', Actions::lineWrap(false));
+
         $this->assertCsiSeq('1E', Actions::moveCursorNextLine(1));
+        $this->assertCsiSeq('100E', Actions::moveCursorNextLine(100));
         $this->assertCsiSeq('1F', Actions::moveCursorPreviousLine(1));
         $this->assertCsiSeq('1G', Actions::moveCursorToColumn(0));
         $this->assertCsiSeq('1d', Actions::moveCursorToRow(0));
@@ -57,6 +59,7 @@ final class AnsiPainterTest extends TestCase
         $this->assertCsiSeq('1C', Actions::moveCursorRight(1));
         $this->assertCsiSeq('1B', Actions::moveCursorDown(1));
         $this->assertCsiSeq('1D', Actions::moveCursorLeft(1));
+
         $this->assertRawSeq("\xB7", Actions::saveCursorPosition());
         $this->assertRawSeq("\xB8", Actions::restoreCursorPosition());
         $this->assertCsiSeq('?12h', Actions::enableCusorBlinking());
