@@ -12,7 +12,7 @@ Low-level terminal control library **heavily** inspired by
   - [x] Hide or show the cursor
   - [x] Retrieve and change the cursor position
   - [x] Store and restore the cursor position
-  - [ ] Enable/disable cursor blinking
+  - [x] Enable/disable cursor blinking
 - Styling:
   - [x] Standard 16 ANSI colors
   - [x] RGB color support
@@ -23,7 +23,7 @@ Low-level terminal control library **heavily** inspired by
   - [x] Set/get the terminal size
   - [x] Alternate screen
   - [x] Raw screen
-  - [ ] Scroll up / down
+  - [x] Scroll up / down
   - [ ] Set terminal title
   - [ ] Enable/disable line wrapping
 - Events:
@@ -43,3 +43,4 @@ $ composer require phptui/term
 
 Usage
 -----
+
