@@ -24,8 +24,8 @@ Low-level terminal control library **heavily** inspired by
   - [x] Alternate screen
   - [x] Raw screen
   - [x] Scroll up / down
-  - [ ] Set terminal title
-  - [ ] Enable/disable line wrapping
+  - [x] Set terminal title
+  - [x] Enable/disable line wrapping
 - Events:
   - [x] Input events (e.g. keyboard events)
   - [x] Mouse (position, press, release, button, drag)

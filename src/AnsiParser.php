@@ -6,6 +6,7 @@ namespace PhpTui\Term;
 
 use PhpTui\Term\Action\AlternateScreenEnable;
 use PhpTui\Term\Action\Clear;
+use PhpTui\Term\Action\EnableLineWrap;
 use PhpTui\Term\Action\PrintString;
 use PhpTui\Term\Action\SetTerminalTitle;
 
@@ -184,7 +185,7 @@ final class AnsiParser
     /**
      * @param string[] $buffer
      */
-    private function parseGraphicsMode(array $buffer): Action
+    private function parseGraphicsMode(array $buffer): ?Action
     {
         $string = implode('', array_slice($buffer, 2, -1));
         $parts = explode(';', $string);
@@ -252,7 +253,8 @@ final class AnsiParser
         return match ($buffer[3]) {
             '2' => $this->parsePrivateModes2($buffer),
             '1' => $this->parsePrivateModes2($buffer),
-            default => throw new ParseError(sprintf('Could not parse graphics mode: %s', json_encode(implode('', $buffer)))),
+            '7' => $this->parseLineWrap($buffer),
+            default => throw ParseError::couldNotParseOffset($buffer, 3, 'Could not parse private mode'),
         };
     }
 
@@ -386,5 +388,21 @@ final class AnsiParser
             return new SetTerminalTitle(implode('', array_slice($buffer, 4, -1)));
         }
         return null;
+    }
+
+    /**
+     * @param string[] $buffer
+     */
+    private function parseLineWrap(array $buffer): ?Action
+    {
+        if (count($buffer) === 4) {
+            return null;
+        }
+        $last = $buffer[array_key_last($buffer)];
+        return match($last) {
+            'h' => new EnableLineWrap(true),
+            'l' => new EnableLineWrap(false),
+            default => throw ParseError::couldNotParseOffset($buffer, array_key_last($buffer), 'Could not parse line wrapping'),
+        };
     }
 }
