@@ -291,7 +291,7 @@ final class AnsiParser
             '2' => match ($buffer[5]) {
                 'h' => new EnableCursorBlinking(true),
                 'l' => new EnableCursorBlinking(false),
-                default => ParseError::couldNotParseOffset($buffer, 4, 'Could not parse cursor blinking mode'),
+                default => throw ParseError::couldNotParseOffset($buffer, 4, 'Could not parse cursor blinking mode'),
             },
             '5' => match ($buffer[5]) {
                 'l' => Actions::cursorHide(),

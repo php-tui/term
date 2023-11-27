@@ -44,4 +44,3 @@ final class AggregateEventProviderTest extends TestCase
         self::assertNull($provider->next());
     }
 }
-

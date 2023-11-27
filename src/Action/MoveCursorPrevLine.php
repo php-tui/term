@@ -4,7 +4,7 @@ namespace PhpTui\Term\Action;
 
 use PhpTui\Term\Action;
 
-class MoveCursorPrevLine implements Action
+final class MoveCursorPrevLine implements Action
 {
     public function __construct(public readonly int $nbLines)
     {

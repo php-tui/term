@@ -4,7 +4,7 @@ namespace PhpTui\Term\Action;
 
 use PhpTui\Term\Action;
 
-class MoveCursorUp implements Action
+final class MoveCursorUp implements Action
 {
     public function __construct(public readonly int $lines)
     {

@@ -3,9 +3,8 @@
 namespace PhpTui\Term\Action;
 
 use PhpTui\Term\Action;
-use PhpTui\Term\Event;
 
-class EnableCursorBlinking implements Action
+final class EnableCursorBlinking implements Action
 {
     public function __construct(public readonly bool $enable)
     {

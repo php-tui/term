@@ -4,7 +4,7 @@ namespace PhpTui\Term\Action;
 
 use PhpTui\Term\Action;
 
-class MoveCursorRight implements Action
+final class MoveCursorRight implements Action
 {
     public function __construct(public readonly int $cols)
     {

@@ -4,7 +4,7 @@ namespace PhpTui\Term\Action;
 
 use PhpTui\Term\Action;
 
-class MoveCursorToRow implements Action
+final class MoveCursorToRow implements Action
 {
     public function __construct(public readonly int $row)
     {
