@@ -19,6 +19,7 @@ use PhpTui\Term\Action\SetForegroundColor;
 use PhpTui\Term\Action\SetModifier;
 use PhpTui\Term\Action\SetRgbBackgroundColor;
 use PhpTui\Term\Action\SetRgbForegroundColor;
+use PhpTui\Term\Action\SetTerminalTitle;
 
 final class Actions
 {
@@ -149,5 +150,10 @@ final class Actions
     public static function scrollDown(): ScrollDown
     {
         return new ScrollDown();
+    }
+
+    public static function setTitle(string $title): SetTerminalTitle
+    {
+        return new SetTerminalTitle($title);
     }
 }

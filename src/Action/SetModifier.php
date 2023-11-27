@@ -9,7 +9,7 @@ use PhpTui\Term\Attribute;
 
 final class SetModifier implements Action
 {
-    public function __construct(public readonly Attribute $modifier, public bool $enable)
+    public function __construct(public readonly Attribute $modifier, public readonly bool $enable)
     {
     }
 
