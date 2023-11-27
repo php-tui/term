@@ -117,16 +117,17 @@ final class AnsiPainter implements Painter
         }
 
         if ($action instanceof SetCursorStyle) {
-            $this->writer->write(sprintf("\x1b[%d q]", match($action->cursorStyle) {
+            $this->writer->write(sprintf("\x1b[%d q", match($action->cursorStyle) {
                 CursorStyle::DefaultUserShape => 0,
                 CursorStyle::BlinkingBlock => 1,
                 CursorStyle::SteadyBlock => 2,
                 CursorStyle::BlinkingUnderScore => 3,
-                CursorStyle::SteadyUnderScore => 5,
+                CursorStyle::SteadyUnderScore => 4,
                 CursorStyle::BlinkingBar => 5,
                 CursorStyle::SteadyBar => 6,
 
             }));
+            return;
         }
 
         $this->writer->write($this->csi(match (true) {
