@@ -107,5 +107,7 @@ final class AnsiPainterTest extends TestCase
             self::fail(sprintf('Could not decode expected string "%s"', $string));
         }
         self::assertEquals($expected, json_encode($writer->toString()), $command::class);
+        $parsedCommand = AnsiParser::parseString($writer->toString(), true);
+        self::assertEquals($command, $parsedCommand[0], 'parsing output');
     }
 }
