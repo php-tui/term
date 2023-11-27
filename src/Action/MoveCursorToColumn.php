@@ -6,11 +6,11 @@ use PhpTui\Term\Action;
 
 class MoveCursorToColumn implements Action
 {
-    public function __construct(public readonly int $column)
+    public function __construct(public readonly int $col)
     {
     }
     public function __toString(): string
     {
-        return sprintf('MoveCursorToColumn(%d)', $this->column);
+        return sprintf('MoveCursorToColumn(%d)', $this->col);
     }
 }

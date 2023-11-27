@@ -8,15 +8,27 @@ use PhpTui\Term\Action;
 use PhpTui\Term\Action\AlternateScreenEnable;
 use PhpTui\Term\Action\Clear;
 use PhpTui\Term\Action\CursorShow;
+use PhpTui\Term\Action\EnableCursorBlinking;
 use PhpTui\Term\Action\EnableLineWrap;
 use PhpTui\Term\Action\EnableMouseCapture;
 use PhpTui\Term\Action\MoveCursor;
+use PhpTui\Term\Action\MoveCursorDown;
+use PhpTui\Term\Action\MoveCursorLeft;
+use PhpTui\Term\Action\MoveCursorNextLine;
+use PhpTui\Term\Action\MoveCursorPrevLine;
+use PhpTui\Term\Action\MoveCursorRight;
+use PhpTui\Term\Action\MoveCursorToColumn;
+use PhpTui\Term\Action\MoveCursorToRow;
+use PhpTui\Term\Action\MoveCursorUp;
 use PhpTui\Term\Action\PrintString;
 use PhpTui\Term\Action\RequestCursorPosition;
 use PhpTui\Term\Action\Reset;
+use PhpTui\Term\Action\RestoreCursorPosition;
+use PhpTui\Term\Action\SaveCursorPosition;
 use PhpTui\Term\Action\ScrollDown;
 use PhpTui\Term\Action\ScrollUp;
 use PhpTui\Term\Action\SetBackgroundColor;
+use PhpTui\Term\Action\SetCursorStyle;
 use PhpTui\Term\Action\SetForegroundColor;
 use PhpTui\Term\Action\SetModifier;
 use PhpTui\Term\Action\SetRgbBackgroundColor;
@@ -25,6 +37,7 @@ use PhpTui\Term\Action\SetTerminalTitle;
 use PhpTui\Term\Attribute;
 use PhpTui\Term\ClearType;
 use PhpTui\Term\Colors;
+use PhpTui\Term\CursorStyle;
 use PhpTui\Term\Painter;
 use PhpTui\Term\Writer;
 use RuntimeException;
@@ -89,9 +102,31 @@ final class AnsiPainter implements Painter
             return;
         }
 
+        if ($action instanceof SaveCursorPosition) {
+            $this->writer->write('?12h');
+            return;
+        }
+        if ($action instanceof RestoreCursorPosition) {
+            $this->writer->write('?12l');
+            return;
+        }
+
         if ($action instanceof SetTerminalTitle) {
             $this->writer->write($this->osc(sprintf("0;%s\x07", $action->title)));
             return;
+        }
+
+        if ($action instanceof SetCursorStyle) {
+            $this->writer->write(sprintf("\x1b[%d q]", match($action->cursorStyle) {
+                CursorStyle::DefaultUserShape => 0,
+                CursorStyle::BlinkingBlock => 1,
+                CursorStyle::SteadyBlock => 2,
+                CursorStyle::BlinkingUnderScore => 3,
+                CursorStyle::SteadyUnderScore => 5,
+                CursorStyle::BlinkingBar => 5,
+                CursorStyle::SteadyBar => 6,
+
+            }));
         }
 
         $this->writer->write($this->csi(match (true) {
@@ -118,6 +153,15 @@ final class AnsiPainter implements Painter
                 sprintf('%dm', $this->modifierOnIndex($action->modifier)) :
                 sprintf('%dm', $this->modifierOffIndex($action->modifier)),
             $action instanceof RequestCursorPosition => '6n',
+            $action instanceof MoveCursorNextLine => sprintf('%dE', $action->nbLines),
+            $action instanceof MoveCursorPrevLine => sprintf('%dF', $action->nbLines),
+            $action instanceof MoveCursorToColumn => sprintf('%dG', $action->col + 1),
+            $action instanceof MoveCursorToRow => sprintf('%dd', $action->row + 1),
+            $action instanceof MoveCursorUp => sprintf('%dA', $action->lines),
+            $action instanceof MoveCursorRight => sprintf('%dC', $action->cols),
+            $action instanceof MoveCursorDown => sprintf('%dB', $action->lines),
+            $action instanceof MoveCursorLeft => sprintf('%dD', $action->cols),
+            $action instanceof EnableCursorBlinking => $action->enable ? '?12h' : '?12l',
             default => throw new RuntimeException(sprintf(
                 'Do not know how to handle action: %s',
                 $action::class
