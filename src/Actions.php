@@ -162,4 +162,56 @@ final class Actions
     {
         return new EnableLineWrap($enable);
     }
+
+    public static function moveCursorNextLine(int $int)
+    {
+    }
+
+    public static function moveCursorPreviousLine(int $int)
+    {
+    }
+
+    public static function moveCursorToColumn(int $int)
+    {
+    }
+
+    public static function moveCursorUp(int $int)
+    {
+    }
+
+    public static function moveCursorToRow(int $int)
+    {
+    }
+
+    public static function moveCursorRight(int $int)
+    {
+    }
+
+    public static function moveCursorDown(int $int)
+    {
+    }
+
+    public static function moveCursorLeft(int $int)
+    {
+    }
+
+    public static function saveCursorPosition()
+    {
+    }
+
+    public static function restoreCursorPosition()
+    {
+    }
+
+    public static function enableCusorBlinking()
+    {
+    }
+
+    public static function disableCursorBlinking()
+    {
+    }
+
+    public static function setCursorStyle($argument0)
+    {
+    }
 }
