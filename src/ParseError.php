@@ -25,10 +25,11 @@ final class ParseError extends RuntimeException
     /**
      * @param string[] $buffer
      */
-    public static function couldNotParseBuffer(array $buffer): self
+    public static function couldNotParseBuffer(array $buffer, string $message = 'Could not parse buffer'): self
     {
         return new self(sprintf(
-            'Could not parse graphics mode: %s',
+            '%s: %s',
+            $message,
             json_encode(implode('', $buffer))
         ));
     }

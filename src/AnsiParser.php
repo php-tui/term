@@ -7,6 +7,7 @@ namespace PhpTui\Term;
 use PhpTui\Term\Action\AlternateScreenEnable;
 use PhpTui\Term\Action\Clear;
 use PhpTui\Term\Action\PrintString;
+use PhpTui\Term\Action\SetTerminalTitle;
 
 /**
  * Parse ANSI escape sequences (back) to painter actions.
@@ -125,6 +126,7 @@ final class AnsiParser
 
         return match ($buffer[1]) {
             '[' => $this->parseCsi($buffer, $more),
+            ']' => $this->parseOsc($buffer, $more),
             default => Actions::printString($buffer[0])
         };
     }
@@ -350,5 +352,39 @@ final class AnsiParser
             97 => Colors::White,
             default => throw new ParseError(sprintf('Do not know how to handle color: %s', $color)),
         };
+    }
+
+    /**
+     * @param string[] $buffer
+     */
+    private function parseOsc(array $buffer, bool $more): ?Action
+    {
+        if (count($buffer) === 2) {
+            return null;
+        }
+
+        return match ($buffer[2]) {
+            '0' => $this->parseSetTitle($buffer),
+            default => throw new ParseError(sprintf('Could not parse OSC sequence: %s', json_encode(implode('', $buffer)))),
+        };
+
+    }
+
+    /**
+     * @param string[] $buffer
+     */
+    private function parseSetTitle(array $buffer): ?Action
+    {
+        if (count($buffer) <= 3) {
+            return null;
+        }
+        if ($buffer[3] !== ';') {
+            throw ParseError::couldNotParseBuffer($buffer, sprintf('Expected ";" after 0 for set title command'));
+        }
+        $last = $buffer[array_key_last($buffer)];
+        if ($last === "\x07") { // BEL
+            return new SetTerminalTitle(implode('', array_slice($buffer, 4, -1)));
+        }
+        return null;
     }
 }
