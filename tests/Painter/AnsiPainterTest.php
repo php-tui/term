@@ -60,13 +60,13 @@ final class AnsiPainterTest extends TestCase
         $this->assertRawSeq("\xB8", Actions::restoreCursorPosition());
         $this->assertCsiSeq("?12h", Actions::enableCusorBlinking());
         $this->assertCsiSeq("?12l", Actions::disableCursorBlinking());
-        $this->assertRawSeq("\x1b[0 q", Actions::setCursorStyle(CursorStyle::DefaultUserShape);
-        $this->assertRawSeq("\x1b[1 q", Actions::setCursorStyle(CursorStyle::BlinkingBlock);
-        $this->assertRawSeq("\x1b[2 q", Actions::setCursorStyle(CursorStyle::SteadyBlock);
-        $this->assertRawSeq("\x1b[3 q", Actions::setCursorStyle(CursorStyle::BlinkingUnderscore);
-        $this->assertRawSeq("\x1b[4 q", Actions::setCursorStyle(CursorStyle::SteadyUnderscore);
-        $this->assertRawSeq("\x1b[5 q", Actions::setCursorStyle(CursorStyle::Blinkingbar);
-        $this->assertRawSeq("\x1b[6 q", Actions::setCursorStyle(CursorStyle::SteadyBar);
+        $this->assertRawSeq("\x1b[0 q", Actions::setCursorStyle(CursorStyle::DefaultUserShape));
+        $this->assertRawSeq("\x1b[1 q", Actions::setCursorStyle(CursorStyle::BlinkingBlock));
+        $this->assertRawSeq("\x1b[2 q", Actions::setCursorStyle(CursorStyle::SteadyBlock));
+        $this->assertRawSeq("\x1b[3 q", Actions::setCursorStyle(CursorStyle::BlinkingUnderscore));
+        $this->assertRawSeq("\x1b[4 q", Actions::setCursorStyle(CursorStyle::SteadyUnderscore));
+        $this->assertRawSeq("\x1b[5 q", Actions::setCursorStyle(CursorStyle::Blinkingbar));
+        $this->assertRawSeq("\x1b[6 q", Actions::setCursorStyle(CursorStyle::SteadyBar));
 
         $this->assertCsiSeq("0;Hello\x07", Actions::setTitle('Hello'));
 
