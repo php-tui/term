@@ -6,6 +6,8 @@ PHP Term
 Low-level terminal control library **heavily** inspired by
 [crossterm](https://github.com/crossterm-rs/crossterm).
 
+- Command pattern used to allow buffering of updates.
+- ANSI _parser_ included to translate output back to commands.
 - Cursor:
   - [x] Hide or show the cursor
   - [x] Retrieve and change the cursor position
@@ -29,6 +31,7 @@ Low-level terminal control library **heavily** inspired by
   - [x] Mouse (position, press, release, button, drag)
   - [ ] Terminal resize events
   - [x] Modifiers (shift, alt, ctrl) support for mouse and keys
+
 
 
 Installation
