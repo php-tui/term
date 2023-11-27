@@ -47,7 +47,7 @@ Usage
 
 You can send data to the terminal using _actions_.
 
-```
+```php
 <?php
 
 $terminal = Terminal::new();
@@ -66,44 +66,44 @@ All actions are made available via. the `Actions` factory:
 
 | method | description |
 | --- | --- |
-| requestCursorPosition | Request the cursor position.<br/><br/>This will (hopefully) be returned by the terminal and will be provided<br/>as an `PhpTui\Term\Event\CursorPositionEvent`. |
-| alternateScreenEnable | Enable the alternate screen.<br/><br/>Allows switching back to the users previous "screen" later. |
-| alternateScreenDisable | Disable the alternate screen |
-| printString | Echo a standard string to the terminal |
-| cursorShow | Show the cursor |
-| cursorHide | Hide the cursor |
-| setRgbForegroundColor | Set the foreground color using RGB |
-| setRgbBackgroundColor | Set the background color using RGB |
-| setForegroundColor | Set the foreground color to one of the ANSI base colors |
-| setBackgroundColor | Set the background color to one of the ANSI base colors |
-| moveCursor | Move the cursor to an absolute position.<br/><br/>The top left cell is 0,0. |
-| reset | Reset all modes (styles and colors) |
-| bold | Enable or disable the bold styling |
-| dim | Enable or disable the dim styling |
-| italic | Enable or disable the italic styling |
-| underline | Enable or disable the underline styling |
-| slowBlink | Enable or disable the slow blink styling |
-| rapidBlink | Enable or disable the rapid blink styling |
-| reverse | Enable or disable the reverse blink styling |
-| hidden | Enable or disable the hidden styling - useful for passwords. |
-| strike | Enable or disable the strike-through styling |
-| clear | Perform a clear operation.<br/><br/>The type of clear operation is given with the Enum for example<br/><br/>```<br/>Actions::clear(ClearType::All)<br/>```<br/><br/>Will clear the entire screen. |
-| enableMouseCapture | Enable mouse capture.<br/><br/>Once this action has been issued mouse events will be made available. |
-| disableMouseCapture | Disable mouse capture |
-| scrollUp | Scroll the terminal up the given number of rows |
-| scrollDown | Scroll the terminal down the given number of rows |
-| setTitle | Set the title of the terminal for the current process. |
-| lineWrap | Enable or disable line wrap |
-| moveCursorNextLine | Move the cursor down and to the start of the next line (or the given number of lines) |
-| moveCursorPreviousLine | Move the cursor up and to the start of the previous line (or the given number of lines) |
-| moveCursorToColumn | Move the cursor to the given column (0 based) |
-| moveCursorToRow | Move the cursor to the given row (0 based) |
-| moveCursorUp | Move cursor up 1 or the given number of rows. |
-| moveCursorRight | Move cursor right 1 or the given number of columns. |
-| moveCursorDown | Move cursor down 1 or the given number of rows. |
-| moveCursorLeft | Move cursor left 1 or the given number of columns. |
-| saveCursorPosition | Save the cursor position |
-| restoreCursorPosition | Restore the cursor position |
-| enableCusorBlinking | Enable cursor blinking |
-| disableCursorBlinking | Disable cursor blinking |
-| setCursorStyle | Set the cursor style |
+| `Actions::requestCursorPosition` | Request the cursor position.<br/><br/>This will (hopefully) be returned by the terminal and will be provided<br/>as an `PhpTui\Term\Event\CursorPositionEvent`. |
+| `Actions::alternateScreenEnable` | Enable the alternate screen.<br/><br/>Allows switching back to the users previous "screen" later. |
+| `Actions::alternateScreenDisable` | Disable the alternate screen |
+| `Actions::printString` | Echo a standard string to the terminal |
+| `Actions::cursorShow` | Show the cursor |
+| `Actions::cursorHide` | Hide the cursor |
+| `Actions::setRgbForegroundColor` | Set the foreground color using RGB |
+| `Actions::setRgbBackgroundColor` | Set the background color using RGB |
+| `Actions::setForegroundColor` | Set the foreground color to one of the ANSI base colors |
+| `Actions::setBackgroundColor` | Set the background color to one of the ANSI base colors |
+| `Actions::moveCursor` | Move the cursor to an absolute position.<br/><br/>The top left cell is 0,0. |
+| `Actions::reset` | Reset all modes (styles and colors) |
+| `Actions::bold` | Enable or disable the bold styling |
+| `Actions::dim` | Enable or disable the dim styling |
+| `Actions::italic` | Enable or disable the italic styling |
+| `Actions::underline` | Enable or disable the underline styling |
+| `Actions::slowBlink` | Enable or disable the slow blink styling |
+| `Actions::rapidBlink` | Enable or disable the rapid blink styling |
+| `Actions::reverse` | Enable or disable the reverse blink styling |
+| `Actions::hidden` | Enable or disable the hidden styling - useful for passwords. |
+| `Actions::strike` | Enable or disable the strike-through styling |
+| `Actions::clear` | Perform a clear operation.<br/><br/>The type of clear operation is given with the Enum for example<br/><br/>`Actions::clear(ClearType::All)`<br/><br/>Will clear the entire screen. |
+| `Actions::enableMouseCapture` | Enable mouse capture.<br/><br/>Once this action has been issued mouse events will be made available. |
+| `Actions::disableMouseCapture` | Disable mouse capture |
+| `Actions::scrollUp` | Scroll the terminal up the given number of rows |
+| `Actions::scrollDown` | Scroll the terminal down the given number of rows |
+| `Actions::setTitle` | Set the title of the terminal for the current process. |
+| `Actions::lineWrap` | Enable or disable line wrap |
+| `Actions::moveCursorNextLine` | Move the cursor down and to the start of the next line (or the given number of lines) |
+| `Actions::moveCursorPreviousLine` | Move the cursor up and to the start of the previous line (or the given number of lines) |
+| `Actions::moveCursorToColumn` | Move the cursor to the given column (0 based) |
+| `Actions::moveCursorToRow` | Move the cursor to the given row (0 based) |
+| `Actions::moveCursorUp` | Move cursor up 1 or the given number of rows. |
+| `Actions::moveCursorRight` | Move cursor right 1 or the given number of columns. |
+| `Actions::moveCursorDown` | Move cursor down 1 or the given number of rows. |
+| `Actions::moveCursorLeft` | Move cursor left 1 or the given number of columns. |
+| `Actions::saveCursorPosition` | Save the cursor position |
+| `Actions::restoreCursorPosition` | Restore the cursor position |
+| `Actions::enableCusorBlinking` | Enable cursor blinking |
+| `Actions::disableCursorBlinking` | Disable cursor blinking |
+| `Actions::setCursorStyle` | Set the cursor style |

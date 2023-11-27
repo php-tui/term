@@ -216,9 +216,7 @@ final class Actions
      *
      * The type of clear operation is given with the Enum for example
      *
-     * ```
-     * Actions::clear(ClearType::All)
-     * ```
+     * `Actions::clear(ClearType::All)`
      *
      * Will clear the entire screen.
      */
