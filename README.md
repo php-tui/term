@@ -6,32 +6,19 @@ PHP Term
 Low-level terminal control library **heavily** inspired by
 [crossterm](https://github.com/crossterm-rs/crossterm).
 
-- Command pattern used to allow buffering of updates.
-- ANSI _parser_ included to translate output back to commands.
-- Cursor:
-  - [x] Hide or show the cursor
-  - [x] Retrieve and change the cursor position
-  - [x] Cursor up / down / start of line etc
-  - [x] Store and restore the cursor position
-  - [x] Enable/disable cursor blinking
-- Styling:
-  - [x] Standard 16 ANSI colors
-  - [x] RGB color support
-  - [x] 256 color support
-  - [x] Bold, italic, underscore, strike, etc.
-- Terminal:
-  - [x] Various methods to clear it
-  - [x] Set/get the terminal size
-  - [x] Alternate screen
-  - [x] Raw screen
-  - [x] Scroll up / down
-  - [x] Set terminal title
-  - [x] Enable/disable line wrapping
-- Events:
-  - [x] Input events (e.g. keyboard events)
-  - [x] Mouse (position, press, release, button, drag)
-  - [x] Terminal resize events
-  - [x] Modifiers (shift, alt, ctrl) support for mouse and keys
+Table of Contents
+-----------------
+
+- [Installation](#installation)
+- [Requiremens](#requirements)
+- [Usage](#usage)
+    - [Actions](#actions)
+    - [Events](#events)
+    - [Terminal Size](#terminal-size)
+    - [Raw Mode](#raw-mode)
+    - [ANSI parsing](#parsing)
+    - [Contributing](#parsing)
+- [Contributing](#contributing)
 
 Installation
 ------------
@@ -39,6 +26,19 @@ Installation
 ```
 $ composer require phptui/term
 ```
+
+Requirements
+------------
+
+I have only tested this library on Linux. It currently requires `stty` to
+enable the raw mode and detect the current window size. It should work on
+MacOS and WSL.
+
+Native **Windows** is currently not supported as I cannot test on Windows, the
+architecture should support Windows however, so if you'd like to make a start
+look at
+[crossterm](https://github.com/crossterm-rs/crossterm/blob/master/src/style/sys/windows.rs)
+for insipiration and start a PR.
 
 Usage
 -----
@@ -107,3 +107,89 @@ All actions are made available via. the `Actions` factory:
 | `Actions::enableCusorBlinking` | Enable cursor blinking |
 | `Actions::disableCursorBlinking` | Disable cursor blinking |
 | `Actions::setCursorStyle` | Set the cursor style |
+
+### Events
+
+Term provides user events:
+
+```php
+while (true) {
+    while ($event = $terminal->events()->next()) {
+        if ($event instanceof CodedKeyEvent) {
+            if ($event->code === KeyCode::Esc) {
+                // escape pressed
+            }
+        }
+        if ($event instanceof CharKeyEvent) {
+            if ($event->char === 'c' && $event->modifiers === KeyModifiers::CONTROL) {
+                // ctrl-c pressed
+            }
+        }
+    }
+    usleep(10000);
+}
+```
+
+The events are as follows:
+
+- `PhpTui\Term\Event\CharKeyEvent`: Standard charcter key
+- `PhpTui\Term\Event\CodedKeyEvent`: Special key, e.g. escape, control, page
+  up, arrow down, etc
+- `PhpTui\Term\Event\CursorPositionEvent`: as a response to
+  `Actions::requestCursorPosition`.
+- `PhpTui\Term\Event\FocusEvent`: for when focus has been gained or lost
+- `PhpTui\Term\Event\FunctionKeyEvent`: when a function key is pressed
+- `PhpTui\Term\Event\MouseEvent`: When the
+  `Actions::enableMouseCapture` has been called, provides mouse event
+  information.
+- `PhpTui\Term\Event\TerminalResizedEvent`: The terminal was resized.
+
+### Terminal Size
+
+You can request the terminal size:
+
+```php
+<?php
+
+$terminal = Terminal::new();
+
+$size = $terminal->info(Size::class);
+if (null !== $size) {
+    echo $size->__toString() . "\n";
+} else {
+    echo 'Could not determine terminal size'."\n";
+}
+```
+
+### Raw Mode
+
+Raw mode disables all the default terminal behaviors and is what you typically
+want to enable when you want a fully interactive terminal.
+
+```
+<?php
+
+$terminal = Terminal::new();
+$terminal->enableRawMode();
+$terminal->disableRawMode();
+```
+
+Always be sure to disable raw mode as it will leave the terminal in a barely
+useable state otherwise!
+
+### Parsing
+
+In addition Term provides a parser which can parse any escape code emitted by
+the actions.
+
+This is useful if you want to capture the output from a terminal application
+and convert it to a set of Actions which can then be redrawn in another medium
+(e.g. plain text or HTML).
+
+```
+$actions = AnsiParser::parseString($rawAnsiOutput, true);
+```
+
+## Contributing
+
+PRs for missing functionalities and improvements are welcome.
