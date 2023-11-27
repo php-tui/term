@@ -48,11 +48,30 @@ final class AnsiPainterTest extends TestCase
         $this->assertCsiSeq('T', Actions::scrollDown());
         $this->assertCsiSeq('?7h', Actions::lineWrap(true));
         $this->assertCsiSeq('?7l', Actions::lineWrap(false));
+        $this->assertCsiSeq('1E', Actions::moveCursorNextLine(1));
+        $this->assertCsiSeq('1F', Actions::moveCursorPreviousLine(1));
+        $this->assertCsiSeq('1G', Actions::moveCursorToColumn(0));
+        $this->assertCsiSeq('1d', Actions::moveCursorToRow(0));
+        $this->assertCsiSeq('1A', Actions::moveCursorUp(1));
+        $this->assertCsiSeq('1C', Actions::moveCursorRight(1));
+        $this->assertCsiSeq('1B', Actions::moveCursorDown(1));
+        $this->assertCsiSeq('1D', Actions::moveCursorLeft(1));
+        $this->assertRawSeq("\xB7", Actions::saveCursorPosition());
+        $this->assertRawSeq("\xB8", Actions::restoreCursorPosition());
+        $this->assertCsiSeq("?12h", Actions::enableCusorBlinking());
+        $this->assertCsiSeq("?12l", Actions::disableCursorBlinking());
+        $this->assertRawSeq("\x1b[0 q", Actions::setCursorStyle(CursorStyle::DefaultUserShape);
+        $this->assertRawSeq("\x1b[1 q", Actions::setCursorStyle(CursorStyle::BlinkingBlock);
+        $this->assertRawSeq("\x1b[2 q", Actions::setCursorStyle(CursorStyle::SteadyBlock);
+        $this->assertRawSeq("\x1b[3 q", Actions::setCursorStyle(CursorStyle::BlinkingUnderscore);
+        $this->assertRawSeq("\x1b[4 q", Actions::setCursorStyle(CursorStyle::SteadyUnderscore);
+        $this->assertRawSeq("\x1b[5 q", Actions::setCursorStyle(CursorStyle::Blinkingbar);
+        $this->assertRawSeq("\x1b[6 q", Actions::setCursorStyle(CursorStyle::SteadyBar);
 
-        $this->assertOscSeq("0;Hello\x07", Actions::setTitle('Hello'));
+        $this->assertCsiSeq("0;Hello\x07", Actions::setTitle('Hello'));
 
-        $this->assertRawSeq("\x1B[?1000h\x1B[?1002h\x1B[?1003h\x1B[?1015h\x1B[?1006h", Actions::enableMouseCapture());
-        $this->assertRawSeq("\x1B[?1006h\x1B[?1015h\x1B[?1003h\x1B[?1002h\x1B[?1000h", Actions::disableMouseCapture());
+        $this->assertCsiSeq("\x1B[?1000h\x1B[?1002h\x1B[?1003h\x1B[?1015h\x1B[?1006h", Actions::enableMouseCapture());
+        $this->assertCsiSeq("\x1B[?1006h\x1B[?1015h\x1B[?1003h\x1B[?1002h\x1B[?1000h", Actions::disableMouseCapture());
     }
     private function assertCsiSeq(string $string, Action $command): void
     {
