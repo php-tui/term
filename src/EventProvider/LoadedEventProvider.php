@@ -12,7 +12,7 @@ final class LoadedEventProvider implements EventProvider
     /**
      * @param list<null|Event> $events
      */
-    private function __construct(private array $events)
+    public function __construct(private array $events)
     {
     }
 
