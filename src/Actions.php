@@ -12,6 +12,8 @@ use PhpTui\Term\Action\MoveCursor;
 use PhpTui\Term\Action\PrintString;
 use PhpTui\Term\Action\RequestCursorPosition;
 use PhpTui\Term\Action\Reset;
+use PhpTui\Term\Action\ScrollDown;
+use PhpTui\Term\Action\ScrollUp;
 use PhpTui\Term\Action\SetBackgroundColor;
 use PhpTui\Term\Action\SetForegroundColor;
 use PhpTui\Term\Action\SetModifier;
@@ -137,5 +139,15 @@ final class Actions
     public static function disableMouseCapture(): EnableMouseCapture
     {
         return new EnableMouseCapture(false);
+    }
+
+    public static function scrollUp(): ScrollUp
+    {
+        return new ScrollUp();
+    }
+
+    public static function scrollDown(): ScrollDown
+    {
+        return new ScrollDown();
     }
 }
