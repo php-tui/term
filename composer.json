@@ -1,0 +1,43 @@
+{
+    "name": "php-tui/term",
+    "description": "comprehensive low level terminal control",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "PhpTui\\Term\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PhpTui\\Term\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniel Leech"
+        }
+    ],
+    "require": {
+        "php": "^8.1"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.34",
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^10.4",
+        "symfony/var-dumper": "^6.3",
+        "phpbench/phpbench": "^1.2"
+    },
+    "scripts": {
+        "phpstan": "./vendor/bin/phpstan --memory-limit=1G",
+        "php-cs-fixer": "./vendor/bin/php-cs-fixer fix",
+        "phpunit": "./vendor/bin/phpunit",
+        "phpbench": "./vendor/bin/phpbench run",
+        "integrate": [
+            "@php-cs-fixer",
+            "@phpstan",
+            "@phpunit",
+            "@phpbench"
+        ]
+    }
+}
