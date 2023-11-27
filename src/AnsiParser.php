@@ -144,6 +144,7 @@ final class AnsiParser
             'J' => Actions::clear(ClearType::FromCursorDown),
             'K' => Actions::clear(ClearType::UntilNewLine),
             'S' => Actions::scrollUp(),
+            'T' => Actions::scrollDown(),
             default => throw new ParseError(sprintf('Could not parse CSI sequence: %s', json_encode(implode('', $buffer)))),
         };
 

@@ -45,6 +45,7 @@ final class AnsiPainterTest extends TestCase
         $this->assertAnsiCode('2K', Actions::clear(ClearType::CurrentLine));
         $this->assertAnsiCode('K', Actions::clear(ClearType::UntilNewLine));
         $this->assertAnsiCode('S', Actions::scrollUp());
+        $this->assertAnsiCode('T', Actions::scrollDown());
         $this->assertRawSeq("\x1B[?1000h\x1B[?1002h\x1B[?1003h\x1B[?1015h\x1B[?1006h", Actions::enableMouseCapture());
         $this->assertRawSeq("\x1B[?1006h\x1B[?1015h\x1B[?1003h\x1B[?1002h\x1B[?1000h", Actions::disableMouseCapture());
     }
