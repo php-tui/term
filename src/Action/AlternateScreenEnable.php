@@ -6,7 +6,7 @@ namespace PhpTui\Term\Action;
 
 use PhpTui\Term\Action;
 
-class AlternateScreenEnable implements Action
+final class AlternateScreenEnable implements Action
 {
     public function __construct(public readonly bool $enable)
     {

@@ -12,7 +12,7 @@ use PhpTui\Term\Painter\AnsiPainter;
 use PhpTui\Term\RawMode\SttyRawMode;
 use PhpTui\Term\Writer\StreamWriter;
 
-class Terminal
+final class Terminal
 {
     /**
      * @var Action[]

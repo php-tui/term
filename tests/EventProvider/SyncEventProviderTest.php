@@ -12,7 +12,7 @@ use PhpTui\Term\KeyCode;
 use PhpTui\Term\Reader\InMemoryReader;
 use PHPUnit\Framework\TestCase;
 
-class SyncEventProviderTest extends TestCase
+final class SyncEventProviderTest extends TestCase
 {
     public function testProvidesNullifNothing(): void
     {

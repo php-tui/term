@@ -8,7 +8,7 @@ use PhpTui\Term\InformationProvider;
 use PhpTui\Term\Size;
 use PhpTui\Term\TerminalInformation;
 
-class SizeFromEnvVarProvider implements InformationProvider
+final class SizeFromEnvVarProvider implements InformationProvider
 {
     public function for(string $classFqn): ?TerminalInformation
     {

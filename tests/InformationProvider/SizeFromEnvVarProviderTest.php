@@ -8,7 +8,7 @@ use PhpTui\Term\InformationProvider\SizeFromEnvVarProvider;
 use PhpTui\Term\Size;
 use PHPUnit\Framework\TestCase;
 
-class SizeFromEnvVarProviderTest extends TestCase
+final class SizeFromEnvVarProviderTest extends TestCase
 {
     public function testProvider(): void
     {

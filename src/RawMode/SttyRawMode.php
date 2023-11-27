@@ -9,7 +9,7 @@ use PhpTui\Term\ProcessRunner\ProcRunner;
 use PhpTui\Term\RawMode;
 use RuntimeException;
 
-class SttyRawMode implements RawMode
+final class SttyRawMode implements RawMode
 {
     private ?string $originalSettings = null;
 

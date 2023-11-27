@@ -10,7 +10,7 @@ use PhpTui\Term\RawMode\SttyRawMode;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 
-class SttyRawModeTest extends TestCase
+final class SttyRawModeTest extends TestCase
 {
     public function testDoesNothingIfAlreadyEnabled(): void
     {

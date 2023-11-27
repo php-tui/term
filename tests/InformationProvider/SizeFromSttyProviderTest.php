@@ -10,7 +10,7 @@ use PhpTui\Term\ProcessRunner\ClosureRunner;
 use PhpTui\Term\Size;
 use PHPUnit\Framework\TestCase;
 
-class SizeFromSttyProviderTest extends TestCase
+final class SizeFromSttyProviderTest extends TestCase
 {
     public function testSizeFromStty(): void
     {

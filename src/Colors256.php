@@ -6,7 +6,7 @@ namespace PhpTui\Term;
 
 use RuntimeException;
 
-class Colors256
+final class Colors256
 {
     private const COLOR_MAP = [
         0 => [0,0,0],

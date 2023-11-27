@@ -6,7 +6,7 @@ namespace PhpTui\Term;
 
 use RuntimeException;
 
-class ParseError extends RuntimeException
+final class ParseError extends RuntimeException
 {
     /**
      * @param string[] $buffer

@@ -7,7 +7,7 @@ namespace PhpTui\Term\Painter;
 use PhpTui\Term\Action;
 use PhpTui\Term\Painter;
 
-class BufferPainter implements Painter
+final class BufferPainter implements Painter
 {
     /**
      * @param Action[] $actions

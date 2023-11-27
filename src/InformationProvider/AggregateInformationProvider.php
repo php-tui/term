@@ -7,7 +7,7 @@ namespace PhpTui\Term\InformationProvider;
 use PhpTui\Term\InformationProvider;
 use PhpTui\Term\TerminalInformation;
 
-class AggregateInformationProvider implements InformationProvider
+final class AggregateInformationProvider implements InformationProvider
 {
     /**
      * @param InformationProvider[] $providers

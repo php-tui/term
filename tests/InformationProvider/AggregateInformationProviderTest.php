@@ -9,7 +9,7 @@ use PhpTui\Term\InformationProvider\ClosureInformationProvider;
 use PhpTui\Term\TerminalInformation;
 use PHPUnit\Framework\TestCase;
 
-class AggregateInformationProviderTest extends TestCase
+final class AggregateInformationProviderTest extends TestCase
 {
     public function testReturnsFirstNonNullResult(): void
     {
@@ -37,6 +37,6 @@ class AggregateInformationProviderTest extends TestCase
     }
 }
 
-class TestInfo implements TerminalInformation
+final class TestInfo implements TerminalInformation
 {
 }

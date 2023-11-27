@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
  * Note this class is tested for parity with the
  * painter in AnsiPainterTest
  */
-class AnsiParserTest extends TestCase
+final class AnsiParserTest extends TestCase
 {
     /**
      * @param Action[] $expected

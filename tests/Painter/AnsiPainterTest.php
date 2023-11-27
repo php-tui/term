@@ -13,7 +13,7 @@ use PhpTui\Term\Painter\AnsiPainter;
 use PhpTui\Term\Writer\BufferWriter;
 use PHPUnit\Framework\TestCase;
 
-class AnsiPainterTest extends TestCase
+final class AnsiPainterTest extends TestCase
 {
     public function testControlSequences(): void
     {

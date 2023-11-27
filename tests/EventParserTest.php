@@ -20,7 +20,7 @@ use PhpTui\Term\MouseButton;
 use PhpTui\Term\MouseEventKind;
 use PHPUnit\Framework\TestCase;
 
-class EventParserTest extends TestCase
+final class EventParserTest extends TestCase
 {
     /**
      * @dataProvider provideParse

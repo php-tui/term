@@ -6,7 +6,7 @@ namespace PhpTui\Term\Event;
 
 use PhpTui\Term\Event;
 
-class CursorPositionEvent implements Event
+final class CursorPositionEvent implements Event
 {
     public function __construct(
         public readonly int $x,

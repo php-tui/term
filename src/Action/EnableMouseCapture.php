@@ -6,7 +6,7 @@ namespace PhpTui\Term\Action;
 
 use PhpTui\Term\Action;
 
-class EnableMouseCapture implements Action
+final class EnableMouseCapture implements Action
 {
     public function __construct(public readonly bool $enable)
     {

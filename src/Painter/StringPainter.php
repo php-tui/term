@@ -8,7 +8,7 @@ use PhpTui\Term\Action\MoveCursor;
 use PhpTui\Term\Action\PrintString;
 use PhpTui\Term\Painter;
 
-class StringPainter implements Painter
+final class StringPainter implements Painter
 {
     /**
      * @var array<int,array<int,string>>

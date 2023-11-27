@@ -6,7 +6,7 @@ namespace PhpTui\Term\Writer;
 
 use PhpTui\Term\Writer;
 
-class StreamWriter implements Writer
+final class StreamWriter implements Writer
 {
     /**
      * @param resource $stream

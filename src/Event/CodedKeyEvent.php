@@ -8,7 +8,7 @@ use PhpTui\Term\KeyCode;
 use PhpTui\Term\KeyEventKind;
 use PhpTui\Term\KeyModifiers;
 
-class CodedKeyEvent implements KeyEvent
+final class CodedKeyEvent implements KeyEvent
 {
     /**
      * @param int-mask-of<KeyModifiers::*> $modifiers

@@ -6,7 +6,7 @@ namespace PhpTui\Term\RawMode;
 
 use PhpTui\Term\RawMode;
 
-class TestRawMode implements RawMode
+final class TestRawMode implements RawMode
 {
     private bool $enabled = false;
 

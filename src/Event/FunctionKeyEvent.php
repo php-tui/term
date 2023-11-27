@@ -7,7 +7,7 @@ namespace PhpTui\Term\Event;
 use PhpTui\Term\KeyEventKind;
 use PhpTui\Term\KeyModifiers;
 
-class FunctionKeyEvent implements KeyEvent
+final class FunctionKeyEvent implements KeyEvent
 {
     /**
      * @param int-mask-of<KeyModifiers::*> $modifiers
