@@ -19,6 +19,8 @@ use PhpTui\Term\Action\MoveCursorUp;
 use PhpTui\Term\Action\PrintString;
 use PhpTui\Term\Action\RestoreCursorPosition;
 use PhpTui\Term\Action\SaveCursorPosition;
+use PhpTui\Term\Action\ScrollDown;
+use PhpTui\Term\Action\ScrollUp;
 use PhpTui\Term\Action\SetCursorStyle;
 use PhpTui\Term\Action\SetTerminalTitle;
 
@@ -191,6 +193,7 @@ final class AnsiParser
             'n' => Actions::requestCursorPosition(),
             'E', 'F', 'G', 'd', 'A', 'C', 'B', 'D' => $this->parseCursorMovement($buffer),
             'q' => $this->parseCursorStyle($buffer),
+            'S', 'T' => $this->parseScroll($buffer),
             default => throw ParseError::couldNotParseOffset(
                 $buffer,
                 intval(array_key_last($buffer)),
@@ -465,5 +468,20 @@ final class AnsiParser
             6 => CursorStyle::SteadyBar,
             default => throw ParseError::couldNotParseBuffer($buffer, 'Could not parse cursor style'),
         });
+    }
+
+    /**
+     * @param string[] $buffer
+     */
+    private function parseScroll(array $buffer): Action
+    {
+        $type = array_pop($buffer);
+        $amount = intval(implode('', array_slice($buffer, 2)));
+
+        return match($type) {
+            'S' => new ScrollUp($amount),
+            'T' => new ScrollDown($amount),
+            default => throw ParseError::couldNotParseBuffer($buffer,  'Could not parse scroll'),
+        };
     }
 }

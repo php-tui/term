@@ -45,8 +45,8 @@ final class AnsiPainterTest extends TestCase
         $this->assertCsiSeq('1J', Actions::clear(ClearType::FromCursorUp));
         $this->assertCsiSeq('2K', Actions::clear(ClearType::CurrentLine));
         $this->assertCsiSeq('K', Actions::clear(ClearType::UntilNewLine));
-        $this->assertCsiSeq('S', Actions::scrollUp());
-        $this->assertCsiSeq('T', Actions::scrollDown());
+        $this->assertCsiSeq('2S', Actions::scrollUp(2));
+        $this->assertCsiSeq('2T', Actions::scrollDown(2));
         $this->assertCsiSeq('?7h', Actions::lineWrap(true));
         $this->assertCsiSeq('?7l', Actions::lineWrap(false));
 

@@ -139,8 +139,8 @@ final class AnsiPainter implements Painter
             $action instanceof AlternateScreenEnable => sprintf('?1049%s', $action->enable ? 'h' : 'l'),
             $action instanceof MoveCursor => sprintf('%d;%dH', $action->line, $action->col),
             $action instanceof Reset => '0m',
-            $action instanceof ScrollUp => 'S',
-            $action instanceof ScrollDown => 'T',
+            $action instanceof ScrollUp => sprintf('%dS', $action->rows),
+            $action instanceof ScrollDown => sprintf('%dT', $action->rows),
             $action instanceof EnableLineWrap => $action->enable ? '?7h' : '?7l',
             $action instanceof Clear => match ($action->clearType) {
                 ClearType::All => '2J',
