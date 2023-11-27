@@ -103,11 +103,11 @@ final class AnsiPainter implements Painter
         }
 
         if ($action instanceof SaveCursorPosition) {
-            $this->writer->write('?12h');
+            $this->writer->write("\x1B7");
             return;
         }
         if ($action instanceof RestoreCursorPosition) {
-            $this->writer->write('?12l');
+            $this->writer->write("\x1B8");
             return;
         }
 

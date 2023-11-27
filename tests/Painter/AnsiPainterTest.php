@@ -60,8 +60,8 @@ final class AnsiPainterTest extends TestCase
         $this->assertCsiSeq('1B', Actions::moveCursorDown(1));
         $this->assertCsiSeq('1D', Actions::moveCursorLeft(1));
 
-        $this->assertRawSeq("\xB7", Actions::saveCursorPosition());
-        $this->assertRawSeq("\xB8", Actions::restoreCursorPosition());
+        $this->assertRawSeq("\x1B7", Actions::saveCursorPosition());
+        $this->assertRawSeq("\x1B8", Actions::restoreCursorPosition());
         $this->assertCsiSeq('?12h', Actions::enableCusorBlinking());
         $this->assertCsiSeq('?12l', Actions::disableCursorBlinking());
         $this->assertRawSeq("\x1b[0 q", Actions::setCursorStyle(CursorStyle::DefaultUserShape));
@@ -102,6 +102,10 @@ final class AnsiPainterTest extends TestCase
         $writer = BufferWriter::new();
         $term = AnsiPainter::new($writer);
         $term->paint([$command]);
-        self::assertEquals(json_encode($string), json_encode($writer->toString()), $command::class);
+        $expected = json_encode($string);
+        if (false === $expected) {
+            self::fail(sprintf('Could not decode expected string "%s"', $string));
+        }
+        self::assertEquals($expected, json_encode($writer->toString()), $command::class);
     }
 }
