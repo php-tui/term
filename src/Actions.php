@@ -7,6 +7,7 @@ namespace PhpTui\Term;
 use PhpTui\Term\Action\AlternateScreenEnable;
 use PhpTui\Term\Action\Clear;
 use PhpTui\Term\Action\CursorShow;
+use PhpTui\Term\Action\EnableLineWrap;
 use PhpTui\Term\Action\EnableMouseCapture;
 use PhpTui\Term\Action\MoveCursor;
 use PhpTui\Term\Action\PrintString;
@@ -155,5 +156,10 @@ final class Actions
     public static function setTitle(string $title): SetTerminalTitle
     {
         return new SetTerminalTitle($title);
+    }
+
+    public static function lineWrap(bool $enable): EnableLineWrap
+    {
+        return new EnableLineWrap($enable);
     }
 }

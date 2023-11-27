@@ -8,6 +8,7 @@ use PhpTui\Term\Action;
 use PhpTui\Term\Action\AlternateScreenEnable;
 use PhpTui\Term\Action\Clear;
 use PhpTui\Term\Action\CursorShow;
+use PhpTui\Term\Action\EnableLineWrap;
 use PhpTui\Term\Action\EnableMouseCapture;
 use PhpTui\Term\Action\MoveCursor;
 use PhpTui\Term\Action\PrintString;
@@ -104,6 +105,7 @@ final class AnsiPainter implements Painter
             $action instanceof Reset => '0m',
             $action instanceof ScrollUp => 'S',
             $action instanceof ScrollDown => 'T',
+            $action instanceof EnableLineWrap => $action->enable ? '?7h' : '?7l',
             $action instanceof Clear => match ($action->clearType) {
                 ClearType::All => '2J',
                 ClearType::Purge => '3J',
