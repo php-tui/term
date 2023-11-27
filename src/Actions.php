@@ -246,89 +246,137 @@ final class Actions
     }
 
     /**
-     * Scroll the terminal up
+     * Scroll the terminal up the given number of rows
      */
     public static function scrollUp(int $rows = 1): ScrollUp
     {
         return new ScrollUp($rows);
     }
 
+    /**
+     * Scroll the terminal down the given number of rows
+     */
     public static function scrollDown(int $rows = 1): ScrollDown
     {
         return new ScrollDown($rows);
     }
 
+    /**
+     * Set the title of the terminal for the current process.
+     */
     public static function setTitle(string $title): SetTerminalTitle
     {
         return new SetTerminalTitle($title);
     }
 
+    /**
+     * Enable or disable line wrap
+     */
     public static function lineWrap(bool $enable): EnableLineWrap
     {
         return new EnableLineWrap($enable);
     }
 
-    public static function moveCursorNextLine(int $nbLines): MoveCursorNextLine
+    /**
+     * Move the cursor down and to the start of the next line (or the given number of lines)
+     */
+    public static function moveCursorNextLine(int $nbLines = 1): MoveCursorNextLine
     {
         return new MoveCursorNextLine($nbLines);
     }
 
-    public static function moveCursorPreviousLine(int $nbLines): MoveCursorPrevLine
+    /**
+     * Move the cursor up and to the start of the previous line (or the given number of lines)
+     */
+    public static function moveCursorPreviousLine(int $nbLines = 1): MoveCursorPrevLine
     {
         return new MoveCursorPrevLine($nbLines);
     }
 
-    public static function moveCursorToColumn(int $int): MoveCursorToColumn
+    /**
+     * Move the cursor to the given column (0 based)
+     */
+    public static function moveCursorToColumn(int $col): MoveCursorToColumn
     {
-        return new MoveCursorToColumn($int);
+        return new MoveCursorToColumn($col);
     }
 
-    public static function moveCursorToRow(int $int): MoveCursorToRow
+    /**
+     * Move the cursor to the given row (0 based)
+     */
+    public static function moveCursorToRow(int $rows): MoveCursorToRow
     {
-        return new MoveCursorToRow($int);
+        return new MoveCursorToRow($rows);
     }
 
-    public static function moveCursorUp(int $int): MoveCursorUp
+    /**
+     * Move cursor up 1 or the given number of rows.
+     */
+    public static function moveCursorUp(int $rows = 1): MoveCursorUp
     {
-        return new MoveCursorUp($int);
+        return new MoveCursorUp($rows);
     }
 
 
+    /**
+     * Move cursor right 1 or the given number of columns.
+     */
     public static function moveCursorRight(int $int): MoveCursorRight
     {
         return new MoveCursorRight($int);
     }
 
+    /**
+     * Move cursor down 1 or the given number of rows.
+     */
     public static function moveCursorDown(int $int): MoveCursorDown
     {
         return new MoveCursorDown($int);
     }
 
+    /**
+     * Move cursor left 1 or the given number of columns.
+     */
     public static function moveCursorLeft(int $int): MoveCursorLeft
     {
         return new MoveCursorLeft($int);
     }
 
+    /**
+     * Save the cursor position
+     */
     public static function saveCursorPosition(): SaveCursorPosition
     {
         return new SaveCursorPosition();
     }
 
+    /**
+     * Restore the cursor position
+     */
     public static function restoreCursorPosition(): RestoreCursorPosition
     {
         return new RestoreCursorPosition();
     }
 
+    /**
+     * Enable cursor blinking
+     */
     public static function enableCusorBlinking(): EnableCursorBlinking
     {
         return new EnableCursorBlinking(true);
     }
 
+    /**
+     * Disable cursor blinking
+     */
     public static function disableCursorBlinking(): EnableCursorBlinking
     {
         return new EnableCursorBlinking(false);
     }
 
+    /**
+     * Set the cursor style
+     */
     public static function setCursorStyle(CursorStyle $cursorStyle): SetCursorStyle
     {
         return new SetCursorStyle($cursorStyle);
