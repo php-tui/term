@@ -20,6 +20,7 @@ use PhpTui\Term\Action\SetForegroundColor;
 use PhpTui\Term\Action\SetModifier;
 use PhpTui\Term\Action\SetRgbBackgroundColor;
 use PhpTui\Term\Action\SetRgbForegroundColor;
+use PhpTui\Term\Action\SetTerminalTitle;
 use PhpTui\Term\Attribute;
 use PhpTui\Term\ClearType;
 use PhpTui\Term\Colors;
@@ -98,6 +99,7 @@ final class AnsiPainter implements Painter
             $action instanceof Reset => '0m',
             $action instanceof ScrollUp => 'S',
             $action instanceof ScrollDown => 'T',
+            $action instanceof SetTerminalTitle => sprintf("0;%s\x07", $action->title),
             $action instanceof Clear => match ($action->clearType) {
                 ClearType::All => '2J',
                 ClearType::Purge => '3J',
