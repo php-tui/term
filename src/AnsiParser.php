@@ -19,6 +19,7 @@ use PhpTui\Term\Action\MoveCursorUp;
 use PhpTui\Term\Action\PrintString;
 use PhpTui\Term\Action\RestoreCursorPosition;
 use PhpTui\Term\Action\SaveCursorPosition;
+use PhpTui\Term\Action\SetCursorStyle;
 use PhpTui\Term\Action\SetTerminalTitle;
 
 /**
@@ -189,6 +190,7 @@ final class AnsiParser
             'J', 'K' => $this->parseClear($buffer),
             'n' => Actions::requestCursorPosition(),
             'E', 'F', 'G', 'd', 'A', 'C', 'B', 'D' => $this->parseCursorMovement($buffer),
+            'q' => $this->parseCursorStyle($buffer),
             default => throw ParseError::couldNotParseOffset(
                 $buffer,
                 intval(array_key_last($buffer)),
@@ -200,7 +202,7 @@ final class AnsiParser
     /**
      * @param string[] $buffer
      */
-    private function parseGraphicsMode(array $buffer): ?Action
+    private function parseGraphicsMode(array $buffer): Action
     {
         $string = implode('', array_slice($buffer, 2, -1));
         $parts = explode(';', $string);
@@ -445,5 +447,23 @@ final class AnsiParser
             'D' => new MoveCursorLeft($amount),
             default => throw ParseError::couldNotParseBuffer($buffer, 'Could not parse cursor movement'),
         };
+    }
+
+    /**
+     * @param string[] $buffer
+     */
+    private function parseCursorStyle(array $buffer): Action
+    {
+        $number = intval(trim(implode('', array_slice($buffer, 2, -1))));
+        return new SetCursorStyle(match($number) {
+            0 => CursorStyle::DefaultUserShape,
+            1 => CursorStyle::BlinkingBlock,
+            2 => CursorStyle::SteadyBlock,
+            3 => CursorStyle::BlinkingUnderScore,
+            4 => CursorStyle::SteadyUnderScore,
+            5 => CursorStyle::BlinkingBar,
+            6 => CursorStyle::SteadyBar,
+            default => throw ParseError::couldNotParseBuffer($buffer, 'Could not parse cursor style'),
+        });
     }
 }
