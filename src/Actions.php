@@ -27,6 +27,7 @@ use PhpTui\Term\Action\SaveCursorPosition;
 use PhpTui\Term\Action\ScrollDown;
 use PhpTui\Term\Action\ScrollUp;
 use PhpTui\Term\Action\SetBackgroundColor;
+use PhpTui\Term\Action\SetCursorStyle;
 use PhpTui\Term\Action\SetForegroundColor;
 use PhpTui\Term\Action\SetModifier;
 use PhpTui\Term\Action\SetRgbBackgroundColor;

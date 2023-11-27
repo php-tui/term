@@ -6,6 +6,7 @@ namespace PhpTui\Term;
 
 use PhpTui\Term\Action\AlternateScreenEnable;
 use PhpTui\Term\Action\Clear;
+use PhpTui\Term\Action\EnableCursorBlinking;
 use PhpTui\Term\Action\EnableLineWrap;
 use PhpTui\Term\Action\MoveCursorDown;
 use PhpTui\Term\Action\MoveCursorLeft;
@@ -281,6 +282,11 @@ final class AnsiParser
         }
 
         return match ($buffer[4]) {
+            '2' => match ($buffer[5]) {
+                'h' => new EnableCursorBlinking(true),
+                'l' => new EnableCursorBlinking(false),
+                default => ParseError::couldNotParseOffset($buffer, 4, 'Could not parse cursor blinking mode'),
+            },
             '5' => match ($buffer[5]) {
                 'l' => Actions::cursorHide(),
                 'h' => Actions::cursorShow(),
