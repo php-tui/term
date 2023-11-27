@@ -166,7 +166,7 @@ if (null !== $size) {
 Raw mode disables all the default terminal behaviors and is what you typically
 want to enable when you want a fully interactive terminal.
 
-```
+```php
 <?php
 
 $terminal = Terminal::new();
@@ -186,7 +186,8 @@ This is useful if you want to capture the output from a terminal application
 and convert it to a set of Actions which can then be redrawn in another medium
 (e.g. plain text or HTML).
 
-```
+```php
+use PhpTui\Term\AnsiParser;
 $actions = AnsiParser::parseString($rawAnsiOutput, true);
 ```
 
