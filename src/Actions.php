@@ -175,68 +175,68 @@ final class Actions
         return new EnableLineWrap($enable);
     }
 
-    public static function moveCursorNextLine(int $nbLines)
+    public static function moveCursorNextLine(int $nbLines): MoveCursorNextLine
     {
         return new MoveCursorNextLine($nbLines);
     }
 
-    public static function moveCursorPreviousLine(int $nbLines)
+    public static function moveCursorPreviousLine(int $nbLines): MoveCursorPrevLine
     {
         return new MoveCursorPrevLine($nbLines);
     }
 
-    public static function moveCursorToColumn(int $int)
+    public static function moveCursorToColumn(int $int): MoveCursorToColumn
     {
         return new MoveCursorToColumn($int);
     }
 
-    public static function moveCursorToRow(int $int)
+    public static function moveCursorToRow(int $int): MoveCursorToRow
     {
         return new MoveCursorToRow($int);
     }
 
-    public static function moveCursorUp(int $int)
+    public static function moveCursorUp(int $int): MoveCursorUp
     {
         return new MoveCursorUp($int);
     }
 
 
-    public static function moveCursorRight(int $int)
+    public static function moveCursorRight(int $int): MoveCursorRight
     {
         return new MoveCursorRight($int);
     }
 
-    public static function moveCursorDown(int $int)
+    public static function moveCursorDown(int $int): MoveCursorDown
     {
         return new MoveCursorDown($int);
     }
 
-    public static function moveCursorLeft(int $int)
+    public static function moveCursorLeft(int $int): MoveCursorLeft
     {
         return new MoveCursorLeft($int);
     }
 
-    public static function saveCursorPosition()
+    public static function saveCursorPosition(): SaveCursorPosition
     {
         return new SaveCursorPosition();
     }
 
-    public static function restoreCursorPosition()
+    public static function restoreCursorPosition(): RestoreCursorPosition
     {
         return new RestoreCursorPosition();
     }
 
-    public static function enableCusorBlinking()
+    public static function enableCusorBlinking(): EnableCursorBlinking
     {
         return new EnableCursorBlinking(true);
     }
 
-    public static function disableCursorBlinking()
+    public static function disableCursorBlinking(): EnableCursorBlinking
     {
         return new EnableCursorBlinking(false);
     }
 
-    public static function setCursorStyle(CursorStyle $cursorStyle)
+    public static function setCursorStyle(CursorStyle $cursorStyle): SetCursorStyle
     {
         return new SetCursorStyle($cursorStyle);
     }
