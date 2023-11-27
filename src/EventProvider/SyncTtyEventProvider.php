@@ -10,7 +10,7 @@ use PhpTui\Term\EventProvider;
 use PhpTui\Term\Reader;
 use PhpTui\Term\Reader\StreamReader;
 
-final class SyncEventProvider implements EventProvider
+final class SyncTtyEventProvider implements EventProvider
 {
     /**
      * @var Event[]

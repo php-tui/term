@@ -7,7 +7,7 @@ namespace PhpTui\Term\Tests\EventProvider;
 use PhpTui\Term\Event\CodedKeyEvent;
 use PhpTui\Term\EventParser;
 use PhpTui\Term\EventProvider;
-use PhpTui\Term\EventProvider\SyncEventProvider;
+use PhpTui\Term\EventProvider\SyncTtyEventProvider;
 use PhpTui\Term\KeyCode;
 use PhpTui\Term\Reader\InMemoryReader;
 use PHPUnit\Framework\TestCase;
@@ -58,7 +58,7 @@ final class SyncEventProviderTest extends TestCase
      */
     private function createProvider(array $chunks): EventProvider
     {
-        return new SyncEventProvider(
+        return new SyncTtyEventProvider(
             new InMemoryReader($chunks),
             new EventParser()
         );

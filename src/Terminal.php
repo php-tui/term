@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PhpTui\Term;
 
-use PhpTui\Term\EventProvider\SyncEventProvider;
+use PhpTui\Term\EventProvider\SyncTtyEventProvider;
 use PhpTui\Term\InformationProvider\AggregateInformationProvider;
 use PhpTui\Term\InformationProvider\SizeFromEnvVarProvider;
 use PhpTui\Term\InformationProvider\SizeFromSttyProvider;
@@ -44,7 +44,7 @@ final class Terminal
                 SizeFromSttyProvider::new()
             ]),
             $rawMode ?? SttyRawMode::new(),
-            $eventProvider ?? SyncEventProvider::new(),
+            $eventProvider ?? SyncTtyEventProvider::new(),
         );
     }
 
