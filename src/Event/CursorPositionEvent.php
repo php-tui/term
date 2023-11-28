@@ -9,7 +9,13 @@ use PhpTui\Term\Event;
 final class CursorPositionEvent implements Event
 {
     public function __construct(
+        /**
+         * @var int<0,max>
+         */
         public readonly int $x,
+        /**
+         * @var int<0,max>
+         */
         public readonly int $y
     ) {
     }
