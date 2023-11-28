@@ -21,6 +21,7 @@ Table of Contents
     - [Terminal Size](#terminal-size)
     - [Raw Mode](#raw-mode)
     - [ANSI parsing](#parsing)
+- [Testing](#testing)
 - [Contributing](#contributing)
 
 Installation
@@ -193,6 +194,43 @@ and convert it to a set of Actions which can then be redrawn in another medium
 use PhpTui\Term\AnsiParser;
 $actions = AnsiParser::parseString($rawAnsiOutput, true);
 ```
+
+## Testing
+
+The `Terminal` has testable versions of all it's dependencies:
+
+```php
+<?php
+
+$painter = ArrayPainter::new();
+$eventProvider = ArrayEventProvider::fromEvents(
+    CharKeyEvent::new('c')
+);
+$infoProvider = ClosureInformationProvider::new(
+    function (string $classFqn): TerminalInformation {
+        return new class implements TerminalInformation {};
+    }
+);
+$rawMode = new TestRawMode();
+
+$term = Terminal::new(
+    painter: $painter,
+    infoProvider: $infoProvider,
+    eventProvider: $eventProvider,
+    rawMode: $rawMode
+);
+$term->execute(
+    Actions::printString('Hello World'),
+    Actions::setTitle('Terminal Title'),
+);
+
+echo implode("\n", array_map(
+    fn (Action $action) => $action->__toString(),
+    $painter->actions()
+)). "\n";
+```
+
+See the example `testable.php` in `examples/`.
 
 ## Contributing
 
