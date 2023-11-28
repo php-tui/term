@@ -425,8 +425,8 @@ final class EventParser
         // See http://www.xfree86.org/current/ctlseqs.html#Mouse%20Tracking
         // The upper left character position on the terminal is denoted as 1,1.
         // Subtract 1 to keep it synced with cursor
-        $cx = max(0, ord($buffer[4]) - 32) - 1;
-        $cy = max(0, ord($buffer[5]) - 32) - 1;
+        $cx = max(0, (ord($buffer[4]) - 32) - 1);
+        $cy = max(0, (ord($buffer[5]) - 32) - 1);
 
         return MouseEvent::new($kind, $button, $cx, $cy, $modifiers);
     }
@@ -506,8 +506,8 @@ final class EventParser
         return MouseEvent::new(
             $kind,
             $button,
-            $cx,
-            $cy,
+            max(0, $cx),
+            max(0, $cy),
             $modifiers
         );
     }
@@ -537,8 +537,8 @@ final class EventParser
         return MouseEvent::new(
             $kind,
             $button,
-            $cx,
-            $cy,
+            max(0, $cx),
+            max(0, $cy),
             $modifiers
         );
     }
@@ -555,8 +555,8 @@ final class EventParser
         }
 
         return new CursorPositionEvent(
-            (int) ($split[1]) - 1,
-            (int) ($split[0]) - 1,
+            max(0, (int) ($split[1]) - 1),
+            max(0, (int) ($split[0]) - 1),
         );
     }
 
