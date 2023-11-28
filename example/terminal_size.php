@@ -1,6 +1,6 @@
 <?php
 
-use PhpTui\Term\Size;
+use PhpTui\Term\TerminalInformation\Size;
 use PhpTui\Term\Terminal;
 
 require __DIR__ . '/../vendor/autoload.php';

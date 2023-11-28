@@ -7,7 +7,7 @@ namespace PhpTui\Term\Tests\InformationProvider;
 use PhpTui\Term\InformationProvider\SizeFromSttyProvider;
 use PhpTui\Term\ProcessResult;
 use PhpTui\Term\ProcessRunner\ClosureRunner;
-use PhpTui\Term\Size;
+use PhpTui\Term\TerminalInformation\Size;
 use PHPUnit\Framework\TestCase;
 
 final class SizeFromSttyProviderTest extends TestCase

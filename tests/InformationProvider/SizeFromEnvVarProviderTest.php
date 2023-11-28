@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PhpTui\Term\Tests\InformationProvider;
 
 use PhpTui\Term\InformationProvider\SizeFromEnvVarProvider;
-use PhpTui\Term\Size;
+use PhpTui\Term\TerminalInformation\Size;
 use PHPUnit\Framework\TestCase;
 
 final class SizeFromEnvVarProviderTest extends TestCase

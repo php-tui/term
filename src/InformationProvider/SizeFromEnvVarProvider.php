@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PhpTui\Term\InformationProvider;
 
 use PhpTui\Term\InformationProvider;
-use PhpTui\Term\Size;
+use PhpTui\Term\TerminalInformation\Size;
 use PhpTui\Term\TerminalInformation;
 
 final class SizeFromEnvVarProvider implements InformationProvider

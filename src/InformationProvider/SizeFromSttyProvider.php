@@ -7,7 +7,7 @@ namespace PhpTui\Term\InformationProvider;
 use PhpTui\Term\InformationProvider;
 use PhpTui\Term\ProcessRunner;
 use PhpTui\Term\ProcessRunner\ProcRunner;
-use PhpTui\Term\Size;
+use PhpTui\Term\TerminalInformation\Size;
 use PhpTui\Term\TerminalInformation;
 
 final class SizeFromSttyProvider implements InformationProvider
@@ -53,6 +53,6 @@ final class SizeFromSttyProvider implements InformationProvider
             return null;
         }
 
-        return new Size((int) ($matches[1]), (int) ($matches[2]));
+        return new Size(max(0, (int) ($matches[1])), max(0, (int) ($matches[2])));
     }
 }
