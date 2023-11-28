@@ -68,9 +68,11 @@ final class Terminal
     /**
      * Queue a painter action.
      */
-    public function queue(Action $action): self
+    public function queue(Action ...$actions): self
     {
-        $this->queue[] = $action;
+        foreach ($actions as $action) {
+            $this->queue[] = $action;
+        }
 
         return $this;
     }
@@ -98,8 +100,10 @@ final class Terminal
         return $this;
     }
 
-    public function execute(Action $action): void
+    public function execute(Action ...$actions): void
     {
-        $this->painter->paint([$action]);
+        foreach ($actions as $action) {
+            $this->painter->paint([$action]);
+        }
     }
 }
