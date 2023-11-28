@@ -11,7 +11,7 @@ use PhpTui\Term\Painter;
  * Painter for testing which stores all the actions passed to it and
  * exposes them for inspection.
  */
-final class TestPainter implements Painter
+final class ArrayPainter implements Painter
 {
     /**
      * @param Action[] $actions
