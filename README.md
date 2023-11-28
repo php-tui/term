@@ -3,6 +3,10 @@ PHP Term
 
 [![CI](https://github.com/php-tui/term/actions/workflows/ci.yml/badge.svg)](https://github.com/php-tui/term/actions/workflows/ci.yml)
 
+<p align="center">
+  <img src="https://github.com/php-tui/term/assets/530801/ca7a8e17-2238-496d-aaa8-83c92f2f5009" alt="Term Logo"/>
+</p>
+
 Low-level terminal control library **heavily** inspired by
 [crossterm](https://github.com/crossterm-rs/crossterm).
 
