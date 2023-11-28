@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## 0.3.0
+
+- Moved `Size` class to it's own namespace and added int types
+
 ## 0.2.0
 
 - Support variadics on queue() and execute() #14
