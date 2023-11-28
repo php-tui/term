@@ -8,11 +8,24 @@ use PhpTui\Term\Action;
 use PhpTui\Term\Actions;
 use PhpTui\Term\Colors;
 use PhpTui\Term\Painter\BufferPainter;
+use PhpTui\Term\RawMode\TestRawMode;
 use PhpTui\Term\Terminal;
 use PHPUnit\Framework\TestCase;
 
 final class TerminalTest extends TestCase
 {
+
+    public function testEnableRawMode(): void
+    {
+        $dummy = BufferPainter::new();
+        $rawMode = new TestRawMode();
+        $term = Terminal::new(rawMode: $rawMode);
+        self::assertFalse($rawMode->isEnabled());
+        $term->enableRawMode();
+        self::assertTrue($rawMode->isEnabled());
+        $term->disableRawMode();
+        self::assertFalse($rawMode->isEnabled());
+    }
 
     public function testExecute(): void
     {
