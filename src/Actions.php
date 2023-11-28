@@ -90,7 +90,11 @@ final class Actions
     }
 
     /**
-     * Set the foreground color using RGB
+     * Set the fore
+     * ground color using RGB
+     * @param int<0,255> $r
+     * @param int<0,255> $g
+     * @param int<0,255> $b
      */
     public static function setRgbForegroundColor(int $r, int $g, int $b): SetRgbForegroundColor
     {
@@ -99,6 +103,9 @@ final class Actions
 
     /**
      * Set the background color using RGB
+     * @param int<0,255> $r
+     * @param int<0,255> $g
+     * @param int<0,255> $b
      */
     public static function setRgbBackgroundColor(int $r, int $g, int $b): SetRgbBackgroundColor
     {
@@ -125,6 +132,9 @@ final class Actions
      * Move the cursor to an absolute position.
      *
      * The top left cell is 0,0.
+     *
+     * @param int<0,max> $line
+     * @param int<0,max> $col
      */
     public static function moveCursor(int $line, int $col): MoveCursor
     {
@@ -245,6 +255,7 @@ final class Actions
 
     /**
      * Scroll the terminal up the given number of rows
+     * @param int<0,max> $rows
      */
     public static function scrollUp(int $rows = 1): ScrollUp
     {
@@ -253,6 +264,7 @@ final class Actions
 
     /**
      * Scroll the terminal down the given number of rows
+     * @param int<0,max> $rows
      */
     public static function scrollDown(int $rows = 1): ScrollDown
     {
@@ -277,6 +289,7 @@ final class Actions
 
     /**
      * Move the cursor down and to the start of the next line (or the given number of lines)
+     * @param int<0,max> $nbLines
      */
     public static function moveCursorNextLine(int $nbLines = 1): MoveCursorNextLine
     {
@@ -285,6 +298,7 @@ final class Actions
 
     /**
      * Move the cursor up and to the start of the previous line (or the given number of lines)
+     * @param int<0,max> $nbLines
      */
     public static function moveCursorPreviousLine(int $nbLines = 1): MoveCursorPrevLine
     {
@@ -301,6 +315,7 @@ final class Actions
 
     /**
      * Move the cursor to the given row (0 based)
+     * @param int<0,max> $rows
      */
     public static function moveCursorToRow(int $rows): MoveCursorToRow
     {
@@ -309,6 +324,7 @@ final class Actions
 
     /**
      * Move cursor up 1 or the given number of rows.
+     * @param int<0,max> $rows
      */
     public static function moveCursorUp(int $rows = 1): MoveCursorUp
     {
@@ -318,26 +334,29 @@ final class Actions
 
     /**
      * Move cursor right 1 or the given number of columns.
+     * @param int<0,max> $cols
      */
-    public static function moveCursorRight(int $int): MoveCursorRight
+    public static function moveCursorRight(int $cols): MoveCursorRight
     {
-        return new MoveCursorRight($int);
+        return new MoveCursorRight($cols);
     }
 
     /**
      * Move cursor down 1 or the given number of rows.
+     * @param int<0,max> $rows
      */
-    public static function moveCursorDown(int $int): MoveCursorDown
+    public static function moveCursorDown(int $rows): MoveCursorDown
     {
-        return new MoveCursorDown($int);
+        return new MoveCursorDown($rows);
     }
 
     /**
      * Move cursor left 1 or the given number of columns.
+     * @param int<0,max> $cols
      */
-    public static function moveCursorLeft(int $int): MoveCursorLeft
+    public static function moveCursorLeft(int $cols): MoveCursorLeft
     {
-        return new MoveCursorLeft($int);
+        return new MoveCursorLeft($cols);
     }
 
     /**
