@@ -213,6 +213,7 @@ final class AnsiParser
         // true colors
         if (count($parts) === 5) {
             $rgb = array_map(static fn (string $index): int => (int) $index, array_slice($parts, -3));
+            $rgb = array_map(static fn (int $byte): int => min(255, max(0, $byte)), $rgb);
 
             return match ($parts[0]) {
                 '48' => Actions::setRgbBackgroundColor(...$rgb),
@@ -330,7 +331,7 @@ final class AnsiParser
             throw new ParseError(sprintf('Could not parse cursor position from: "%s"', $string));
         }
 
-        return Actions::moveCursor((int) ($parts[0]), (int) ($parts[1]));
+        return Actions::moveCursor(max(0, (int) ($parts[0])), max(0, (int) ($parts[1])));
     }
 
     /**

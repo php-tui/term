@@ -7,38 +7,71 @@ namespace PhpTui\Term\Tests;
 use PhpTui\Term\Action;
 use PhpTui\Term\Actions;
 use PhpTui\Term\Colors;
-use PhpTui\Term\Painter\BufferPainter;
+use PhpTui\Term\Painter\ArrayPainter;
+use PhpTui\Term\RawMode\TestRawMode;
 use PhpTui\Term\Terminal;
 use PHPUnit\Framework\TestCase;
 
 final class TerminalTest extends TestCase
 {
-    public function testGetTerminalAttr(): void
-    {
-        $dummy = BufferPainter::new();
 
+    public function testEnableRawMode(): void
+    {
+        $dummy = ArrayPainter::new();
+        $rawMode = new TestRawMode();
+        $term = Terminal::new(rawMode: $rawMode);
+        self::assertFalse($rawMode->isEnabled());
+        $term->enableRawMode();
+        self::assertTrue($rawMode->isEnabled());
+        $term->disableRawMode();
+        self::assertFalse($rawMode->isEnabled());
+    }
+
+    public function testExecute(): void
+    {
+        $dummy = ArrayPainter::new();
+        $term = Terminal::new($dummy);
+        $term->execute(
+            Actions::enableMouseCapture(),
+            Actions::moveCursorNextLine(),
+        );
+        self::assertCount(2, $dummy->actions());
+        self::assertEquals(
+            [
+                'EnableMouseCapture(true)',
+                'MoveCursorNextLine(1)',
+            ],
+            array_map(fn (Action $a) => $a->__toString(), $dummy->actions()),
+        );
+    }
+
+    public function testQueueActions(): void
+    {
+        $dummy = ArrayPainter::new();
         $term = Terminal::new($dummy)
 
-            ->queue(Actions::alternateScreenDisable())
-            ->queue(Actions::alternateScreenEnable())
-            ->queue(Actions::printString('Hello World'))
-            ->queue(Actions::cursorShow())
-            ->queue(Actions::cursorHide())
-            ->queue(Actions::setRgbForegroundColor(0, 127, 255))
-            ->queue(Actions::setRgbBackgroundColor(255, 0, 127))
-            ->queue(Actions::setForegroundColor(Colors::Red))
-            ->queue(Actions::setBackgroundColor(Colors::Blue))
-            ->queue(Actions::moveCursor(1, 2))
-            ->queue(Actions::reset())
-            ->queue(Actions::bold(true))
-            ->queue(Actions::dim(true))
-            ->queue(Actions::italic(true))
-            ->queue(Actions::underline(true))
-            ->queue(Actions::slowBlink(true))
-            ->queue(Actions::rapidBlink(true))
-            ->queue(Actions::reverse(true))
-            ->queue(Actions::hidden(true))
-            ->queue(Actions::strike(true))
+            ->queue(
+                Actions::alternateScreenDisable(),
+                Actions::alternateScreenEnable(),
+                Actions::printString('Hello World'),
+                Actions::cursorShow(),
+                Actions::cursorHide(),
+                Actions::setRgbForegroundColor(0, 127, 255),
+                Actions::setRgbBackgroundColor(255, 0, 127),
+                Actions::setForegroundColor(Colors::Red),
+                Actions::setBackgroundColor(Colors::Blue),
+                Actions::moveCursor(1, 2),
+                Actions::reset(),
+                Actions::bold(true),
+                Actions::dim(true),
+                Actions::italic(true),
+                Actions::underline(true),
+                Actions::slowBlink(true),
+                Actions::rapidBlink(true),
+                Actions::reverse(true),
+                Actions::hidden(true),
+                Actions::strike(true)
+            )
             ->flush();
 
         self::assertCount(20, $dummy->actions());

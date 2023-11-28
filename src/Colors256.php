@@ -268,7 +268,7 @@ final class Colors256
     ];
 
     /**
-     * @return array{int,int,int}
+     * @return array{int<0,255>,int<0,255>,int<0,255>}
      */
     public static function indexToRgb(int $index): array
     {

@@ -7,7 +7,7 @@ namespace PhpTui\Term\EventProvider;
 use PhpTui\Term\Event;
 use PhpTui\Term\EventProvider;
 
-final class LoadedEventProvider implements EventProvider
+final class ArrayEventProvider implements EventProvider
 {
     /**
      * @param list<null|Event> $events

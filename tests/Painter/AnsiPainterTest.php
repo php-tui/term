@@ -11,7 +11,7 @@ use PhpTui\Term\ClearType;
 use PhpTui\Term\Colors;
 use PhpTui\Term\CursorStyle;
 use PhpTui\Term\Painter\AnsiPainter;
-use PhpTui\Term\Writer\BufferWriter;
+use PhpTui\Term\Writer\StringWriter;
 use PHPUnit\Framework\TestCase;
 
 final class AnsiPainterTest extends TestCase
@@ -89,7 +89,7 @@ final class AnsiPainterTest extends TestCase
 
     private function assertSeq(string $prefix, string $string, Action $command): void
     {
-        $writer = BufferWriter::new();
+        $writer = StringWriter::new();
         $term = AnsiPainter::new($writer);
         $term->paint([$command]);
         self::assertEquals(json_encode(sprintf('%s%s', $prefix, $string)), json_encode($writer->toString()), $command::class);
@@ -99,7 +99,7 @@ final class AnsiPainterTest extends TestCase
 
     private function assertRawSeq(string $string, Action $command, bool $parse = true): void
     {
-        $writer = BufferWriter::new();
+        $writer = StringWriter::new();
         $term = AnsiPainter::new($writer);
         $term->paint([$command]);
         $expected = json_encode($string);

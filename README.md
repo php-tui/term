@@ -21,6 +21,7 @@ Table of Contents
     - [Terminal Size](#terminal-size)
     - [Raw Mode](#raw-mode)
     - [ANSI parsing](#parsing)
+- [Testing](#testing)
 - [Contributing](#contributing)
 
 Installation
@@ -41,7 +42,7 @@ Native **Windows** is currently not supported as I cannot test on Windows, the
 architecture should support Windows however, so if you'd like to make a start
 look at
 [crossterm](https://github.com/crossterm-rs/crossterm/blob/master/src/style/sys/windows.rs)
-for insipiration and start a PR.
+for inspiration and start a PR.
 
 Usage
 -----
@@ -135,7 +136,7 @@ while (true) {
 
 The events are as follows:
 
-- `PhpTui\Term\Event\CharKeyEvent`: Standard charcter key
+- `PhpTui\Term\Event\CharKeyEvent`: Standard character key
 - `PhpTui\Term\Event\CodedKeyEvent`: Special key, e.g. escape, control, page
   up, arrow down, etc
 - `PhpTui\Term\Event\CursorPositionEvent`: as a response to
@@ -194,6 +195,43 @@ use PhpTui\Term\AnsiParser;
 $actions = AnsiParser::parseString($rawAnsiOutput, true);
 ```
 
+## Testing
+
+The `Terminal` has testable versions of all it's dependencies:
+
+```php
+<?php
+
+$painter = ArrayPainter::new();
+$eventProvider = ArrayEventProvider::fromEvents(
+    CharKeyEvent::new('c')
+);
+$infoProvider = ClosureInformationProvider::new(
+    function (string $classFqn): TerminalInformation {
+        return new class implements TerminalInformation {};
+    }
+);
+$rawMode = new TestRawMode();
+
+$term = Terminal::new(
+    painter: $painter,
+    infoProvider: $infoProvider,
+    eventProvider: $eventProvider,
+    rawMode: $rawMode
+);
+$term->execute(
+    Actions::printString('Hello World'),
+    Actions::setTitle('Terminal Title'),
+);
+
+echo implode("\n", array_map(
+    fn (Action $action) => $action->__toString(),
+    $painter->actions()
+)). "\n";
+```
+
+See the example `testable.php` in `examples/`.
+
 ## Contributing
 
-PRs for missing functionalities and improvements are welcome.
+PRs for missing functionalities and improvements are charactr.
