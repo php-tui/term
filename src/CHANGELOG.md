@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-## main
+## 0.2.0
 
 - Support variadics on queue() and execute() #14
 - Add bounded int types to API
