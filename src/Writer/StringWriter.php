@@ -6,7 +6,7 @@ namespace PhpTui\Term\Writer;
 
 use PhpTui\Term\Writer;
 
-final class BufferWriter implements Writer
+final class StringWriter implements Writer
 {
     private function __construct(private string $buffer)
     {

@@ -7,7 +7,7 @@ namespace PhpTui\Term\Tests;
 use PhpTui\Term\Action;
 use PhpTui\Term\Actions;
 use PhpTui\Term\Colors;
-use PhpTui\Term\Painter\BufferPainter;
+use PhpTui\Term\Painter\TestPainter;
 use PhpTui\Term\RawMode\TestRawMode;
 use PhpTui\Term\Terminal;
 use PHPUnit\Framework\TestCase;
@@ -17,7 +17,7 @@ final class TerminalTest extends TestCase
 
     public function testEnableRawMode(): void
     {
-        $dummy = BufferPainter::new();
+        $dummy = TestPainter::new();
         $rawMode = new TestRawMode();
         $term = Terminal::new(rawMode: $rawMode);
         self::assertFalse($rawMode->isEnabled());
@@ -29,7 +29,7 @@ final class TerminalTest extends TestCase
 
     public function testExecute(): void
     {
-        $dummy = BufferPainter::new();
+        $dummy = TestPainter::new();
         $term = Terminal::new($dummy);
         $term->execute(
             Actions::enableMouseCapture(),
@@ -47,7 +47,7 @@ final class TerminalTest extends TestCase
 
     public function testQueueActions(): void
     {
-        $dummy = BufferPainter::new();
+        $dummy = TestPainter::new();
         $term = Terminal::new($dummy)
 
             ->queue(

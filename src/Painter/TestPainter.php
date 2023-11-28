@@ -7,7 +7,11 @@ namespace PhpTui\Term\Painter;
 use PhpTui\Term\Action;
 use PhpTui\Term\Painter;
 
-final class BufferPainter implements Painter
+/**
+ * Painter for testing which stores all the actions passed to it and
+ * exposes them for inspection.
+ */
+final class TestPainter implements Painter
 {
     /**
      * @param Action[] $actions

@@ -9,7 +9,7 @@ use PhpTui\Term\Reader;
 /**
  * For use in test scenarios
  */
-final class InMemoryReader implements Reader
+final class ArrayReader implements Reader
 {
     /**
      * @param string[] $chunks
