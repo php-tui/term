@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## 0.3.1
+
+- Bug fix: fix Stty size handler when no match
+
 ## 0.3.0
 
 - Moved `Size` class to it's own namespace and added int types
