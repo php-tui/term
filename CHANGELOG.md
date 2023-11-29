@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## 0.3.2
+
+- Bug fix: fix alternate output style from STTY #185
+
 ## 0.3.1
 
 - Bug fix: fix Stty size handler when no match
