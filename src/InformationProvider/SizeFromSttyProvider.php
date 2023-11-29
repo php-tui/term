@@ -49,7 +49,7 @@ final class SizeFromSttyProvider implements InformationProvider
 
     private function parse(string $out): ?Size
     {
-        if (false === preg_match('{rows ([0-9]+); columns ([0-9]+);}is', $out, $matches)) {
+        if (!preg_match('{rows ([0-9]+); columns ([0-9]+);}is', $out, $matches)) {
             return null;
         }
 

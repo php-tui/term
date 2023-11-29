@@ -34,4 +34,21 @@ final class SizeFromSttyProviderTest extends TestCase
         $size = $provider->for(Size::class);
         self::assertEquals(new Size(42, 140), $size);
     }
+
+    public function testSizeFromSttyNoMatch(): void
+    {
+        $runner = ClosureRunner::new(function (array $command): ProcessResult {
+            return new ProcessResult(
+                0,
+                <<<'EOT'
+                    foobar
+                    EOT,
+                ''
+            );
+        });
+
+        $provider = SizeFromSttyProvider::new($runner);
+        $size = $provider->for(Size::class);
+        self::assertNull($size);
+    }
 }
