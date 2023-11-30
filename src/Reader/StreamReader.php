@@ -26,8 +26,8 @@ final class StreamReader implements Reader
 
     public function read(): ?string
     {
-        $bytes = fgets($this->stream);
-        if (false === $bytes) {
+        $bytes = stream_get_contents($this->stream);
+        if ('' === $bytes || false === $bytes) {
             return null;
         }
 
