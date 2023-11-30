@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## 0.3.3
+
+- Bug fix: use `stream_get_contents` and check for empty string #199
+
 ## 0.3.2
 
 - Bug fix: fix alternate output style from STTY #185
