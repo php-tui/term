@@ -19,27 +19,42 @@ $terminal->execute(Actions::moveCursorNextLine());
 $terminal->execute(Actions::enableMouseCapture());
 
 try {
+    // enter the event loop
     eventLoop($terminal);
 } finally {
+    // restore the terminal to it's previous state
     $terminal->execute(Actions::disableMouseCapture());
     $terminal->disableRawMode();
 }
 
 function eventLoop(Terminal $terminal): void
 {
+    // start the loop!
     while (true) {
+
+        // drain any events from the event buffer and process them
         while ($event = $terminal->events()->next()) {
+
+            // note we could just as easily do `echo "foo\n";` here but for
+            // the sake of the example...
             $terminal->queue(Actions::printString($event->__toString()));
             $terminal->queue(Actions::moveCursorNextLine());
+
+            // flush the buffer. note we could have also used
+            // `$terminal->execute(...)` to write the action immediately.
             $terminal->flush();
+
+            // events can be of different types containing different information
             if ($event instanceof CodedKeyEvent) {
                 if ($event->code === KeyCode::Esc) {
                     return;
                 }
             }
+
+            // most events also have modifiers so you can see if the event happened
+            // with a key modifier such as CONTROL or ALT
             if ($event instanceof CharKeyEvent) {
                 if ($event->char === 'c' && $event->modifiers === KeyModifiers::CONTROL) {
-                    $terminal->disableRawMode();
                     return;
                 }
             }
