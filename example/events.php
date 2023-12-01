@@ -35,13 +35,13 @@ function eventLoop(Terminal $terminal): void
         // drain any events from the event buffer and process them
         while ($event = $terminal->events()->next()) {
 
-            // note we could just as easily do `echo "foo\n";` here but for
-            // the sake of the example...
-            $terminal->queue(Actions::printString($event->__toString()));
-            $terminal->queue(Actions::moveCursorNextLine());
+            // queue multiple actions
+            $terminal->queue(
+                Actions::printString($event->__toString()),
+                Actions::moveCursorNextLine(),
+            );
 
-            // flush the buffer. note we could have also used
-            // `$terminal->execute(...)` to write the action immediately.
+            // flush the buffer and write the actions to the terminal
             $terminal->flush();
 
             // events can be of different types containing different information
