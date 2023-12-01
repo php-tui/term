@@ -12,6 +12,9 @@ use PhpTui\Term\TerminalInformation;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+// this example demonstrates the various stub dependencies
+// which you can (for example) use in tests
+/
 $painter = ArrayPainter::new();
 $eventProvider = ArrayEventProvider::fromEvents(
     CharKeyEvent::new('c')

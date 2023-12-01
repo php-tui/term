@@ -3,7 +3,9 @@
 use PhpTui\Term\TerminalInformation\Size;
 use PhpTui\Term\Terminal;
 
-require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php'java
+
+// this example demonstrates retrieving the terminal size
 
 $terminal = Terminal::new();
 
