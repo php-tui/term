@@ -9,13 +9,15 @@ use PhpTui\Term\Terminal;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$terminal = Terminal::new();
-echo 'Entering raw mode...' . "\n";
+// this example will enable raw mode and mouse capture and echo
+// all events to the terminal.
 
+$terminal = Terminal::new();
 $terminal->enableRawMode();
 $terminal->execute(Actions::printString('Entering event loop, press ESC to exit'));
 $terminal->execute(Actions::moveCursorNextLine());
 $terminal->execute(Actions::enableMouseCapture());
+
 try {
     eventLoop($terminal);
 } finally {
