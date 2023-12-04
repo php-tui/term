@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## 0.3.4
+
+- Bug fix: disable mouse capture uses wrong ansi codes #9
+
 ## 0.3.3
 
 - Bug fix: use `stream_get_contents` and check for empty string #199

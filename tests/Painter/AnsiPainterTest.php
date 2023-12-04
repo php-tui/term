@@ -75,7 +75,7 @@ final class AnsiPainterTest extends TestCase
         $this->assertOscSeq("0;Hello\x07", Actions::setTitle('Hello'));
 
         $this->assertRawSeq("\x1B[?1000h\x1B[?1002h\x1B[?1003h\x1B[?1015h\x1B[?1006h", Actions::enableMouseCapture(), false);
-        $this->assertRawSeq("\x1B[?1006h\x1B[?1015h\x1B[?1003h\x1B[?1002h\x1B[?1000h", Actions::disableMouseCapture(), false);
+        $this->assertRawSeq("\x1B[?1006l\x1B[?1015l\x1B[?1003l\x1B[?1002l\x1B[?1000l", Actions::disableMouseCapture(), false);
     }
     private function assertCsiSeq(string $string, Action $command): void
     {
