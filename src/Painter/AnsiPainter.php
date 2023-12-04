@@ -92,11 +92,11 @@ final class AnsiPainter implements Painter
                 '?1006h',
             ] : [
                 // same as above but reversed
-                '?1006h',
-                '?1015h',
-                '?1003h',
-                '?1002h',
-                '?1000h',
+                '?1006l',
+                '?1015l',
+                '?1003l',
+                '?1002l',
+                '?1000l',
             ])));
 
             return;
