@@ -34,10 +34,10 @@ final class Terminal
      * terminal will be created.
      */
     public static function new(
-        Painter $painter = null,
-        InformationProvider  $infoProvider = null,
-        RawMode $rawMode = null,
-        EventProvider $eventProvider = null,
+        ?Painter $painter = null,
+        ?InformationProvider  $infoProvider = null,
+        ?RawMode $rawMode = null,
+        ?EventProvider $eventProvider = null,
     ): self {
         return new self(
             $painter ?? AnsiPainter::new(StreamWriter::stdout()),
