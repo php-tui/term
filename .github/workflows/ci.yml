@@ -11,6 +11,9 @@ jobs:
   phpunit:
     name: PHPUnit (${{ matrix.php-version }})
     runs-on: ubuntu-latest
+    needs:
+      - phpstan
+      - php-cs-fixer
     strategy:
       fail-fast: false
       matrix:

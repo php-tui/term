@@ -264,7 +264,7 @@ final class EventParser
     private function charToEvent(string $char): Event
     {
         $modifiers = 0;
-        $ord = ord($char);
+        $ord = ord($char[0]);
         if ($ord >= 65 && $ord <= 90) {
             $modifiers = KeyModifiers::SHIFT;
         }
