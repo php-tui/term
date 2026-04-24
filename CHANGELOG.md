@@ -3,7 +3,7 @@ CHANGELOG
 
 ## Unreleased
 
-- CI: bump `actions/checkout` v2 → v5 and `ramsey/composer-install` v1 → v3
+- CI: bump `actions/checkout` v2 → v5 and drop `ramsey/composer-install` in favor of a direct `composer install` (avoids a transitive Node.js 20 deprecation warning from its pinned `actions/cache`)
 - CI: test against PHP 8.3, 8.4 and 8.5
 - CI: run PHPUnit on Linux, macOS and Windows
 - Fix PHP 8.5 deprecation in `EventParser::charToEvent()`: passing a multi-byte UTF-8 string to `ord()` is deprecated. Behavior unchanged on previous PHP versions.

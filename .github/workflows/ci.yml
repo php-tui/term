@@ -38,10 +38,8 @@ jobs:
           php-version: ${{ matrix.php-version }}
           tools: composer:v2
 
-      - name: Composer install
-        uses: ramsey/composer-install@v3
-        with:
-          composer-options: --no-scripts
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist
 
       - name: Run PHPUnit
         run: php "-dzend.assertions=1" vendor/bin/phpunit
@@ -65,10 +63,8 @@ jobs:
           php-version: ${{ matrix.php-version }}
           tools: composer:v2
 
-      - name: Composer install
-        uses: ramsey/composer-install@v3
-        with:
-          composer-options: --no-scripts
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse
@@ -92,10 +88,8 @@ jobs:
           php-version: ${{ matrix.php-version }}
           tools: composer:v2
 
-      - name: Composer install
-        uses: ramsey/composer-install@v3
-        with:
-          composer-options: --no-scripts
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist
 
       - name: Run PHP-CS-Fixer
         run: PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --dry-run --diff
