@@ -4,6 +4,7 @@ CHANGELOG
 ## Unreleased
 
 - CI: bump `actions/checkout` v2 → v5 and `ramsey/composer-install` v1 → v3
+- CI: test against PHP 8.3, 8.4 and 8.5
 
 ## 0.3.4
 
