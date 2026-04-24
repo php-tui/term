@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+## Unreleased
+
+- CI: bump `actions/checkout` v2 → v5 and `ramsey/composer-install` v1 → v3
+
 ## 0.3.4
 
 - Bug fix: disable mouse capture uses wrong ansi codes #9
