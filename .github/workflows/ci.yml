@@ -5,9 +5,7 @@ on:
   push:
     branches:
       - main
-
-env:
-  TZ: Europe/Paris
+      - feature/ci-crosplatform-test
 
 jobs:
   phpunit:
