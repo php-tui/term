@@ -11,6 +11,7 @@ use PhpTui\Term\ClearType;
 use PhpTui\Term\Colors;
 use PhpTui\Term\CursorStyle;
 use PhpTui\Term\Painter\AnsiPainter;
+use PhpTui\Term\Terminal;
 use PhpTui\Term\Writer\StringWriter;
 use PHPUnit\Framework\TestCase;
 
@@ -74,8 +75,10 @@ final class AnsiPainterTest extends TestCase
 
         $this->assertOscSeq("0;Hello\x07", Actions::setTitle('Hello'));
 
-        $this->assertRawSeq("\x1B[?1000h\x1B[?1002h\x1B[?1003h\x1B[?1015h\x1B[?1006h", Actions::enableMouseCapture(), false);
-        $this->assertRawSeq("\x1B[?1006l\x1B[?1015l\x1B[?1003l\x1B[?1002l\x1B[?1000l", Actions::disableMouseCapture(), false);
+        if (! Terminal::isWindows()) {
+            $this->assertRawSeq("\x1B[?1000h\x1B[?1002h\x1B[?1003h\x1B[?1015h\x1B[?1006h", Actions::enableMouseCapture(), false);
+            $this->assertRawSeq("\x1B[?1006l\x1B[?1015l\x1B[?1003l\x1B[?1002l\x1B[?1000l", Actions::disableMouseCapture(), false);
+        }
     }
     private function assertCsiSeq(string $string, Action $command): void
     {

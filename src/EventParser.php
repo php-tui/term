@@ -10,12 +10,15 @@ use PhpTui\Term\Event\CursorPositionEvent;
 use PhpTui\Term\Event\FocusEvent;
 use PhpTui\Term\Event\FunctionKeyEvent;
 use PhpTui\Term\Event\MouseEvent;
+use PhpTui\Term\Event\TerminalResizedEvent;
 
 /**
  * Parses input events
  */
 final class EventParser
 {
+    private const WINDOWS_RESIZE_SENTINEL = "\x1B]php-tui-resize\x07";
+
     /**
      * @var string[]
      */
@@ -101,6 +104,7 @@ final class EventParser
 
         return match ($buffer[1]) {
             '[' => $this->parseCsi($buffer),
+            ']' => $this->parseOsc($buffer),
             "\x1B" => CodedKeyEvent::new(KeyCode::Esc),
             'O' => (function () use ($buffer): null|FunctionKeyEvent|CodedKeyEvent {
                 if (count($buffer) === 2) {
@@ -123,6 +127,24 @@ final class EventParser
             })(),
             default => $this->parseEvent(array_slice($buffer, 1), $inputAvailable),
         };
+    }
+
+    /**
+     * @param string[] $buffer
+     */
+    private function parseOsc(array $buffer): ?Event
+    {
+        $sequence = implode('', $buffer);
+
+        if ($sequence === self::WINDOWS_RESIZE_SENTINEL) {
+            return new TerminalResizedEvent();
+        }
+
+        if (str_starts_with(self::WINDOWS_RESIZE_SENTINEL, $sequence)) {
+            return null;
+        }
+
+        throw ParseError::couldNotParseOffset($buffer, 1);
     }
 
     /**
@@ -264,7 +286,7 @@ final class EventParser
     private function charToEvent(string $char): Event
     {
         $modifiers = 0;
-        $ord = ord($char);
+        $ord = ord($char[0]);
         if ($ord >= 65 && $ord <= 90) {
             $modifiers = KeyModifiers::SHIFT;
         }
@@ -296,6 +318,23 @@ final class EventParser
         })();
 
         $key = $buffer[array_key_last($buffer)];
+
+        if ($key === 'u') {
+            $codepoint = $this->filterToInt($parts[0]);
+
+            if ($codepoint === 9) {
+                return CodedKeyEvent::new(
+                    ($modifiers & KeyModifiers::SHIFT) !== 0 ? KeyCode::BackTab : KeyCode::Tab,
+                    $modifiers,
+                    $kind,
+                );
+            }
+
+            if ($codepoint !== null) {
+                return CharKeyEvent::new(mb_chr($codepoint, 'UTF-8'), $modifiers);
+            }
+        }
+
         $codedKey = match ($key) {
             'A' => KeyCode::Up,
             'B' => KeyCode::Down,

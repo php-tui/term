@@ -5,3 +5,5 @@ parameters:
     paths:
         - src
         - tests
+    universalObjectCratesClasses:
+        - FFI\CData

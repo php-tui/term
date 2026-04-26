@@ -12,6 +12,7 @@ use PhpTui\Term\Event\CursorPositionEvent;
 use PhpTui\Term\Event\FocusEvent;
 use PhpTui\Term\Event\FunctionKeyEvent;
 use PhpTui\Term\Event\MouseEvent;
+use PhpTui\Term\Event\TerminalResizedEvent;
 use PhpTui\Term\EventParser;
 use PhpTui\Term\KeyCode;
 use PhpTui\Term\KeyEventKind;
@@ -115,6 +116,10 @@ final class EventParserTest extends TestCase
         yield 'FocusLost' => [
             "\x1B[O",
             FocusEvent::lost(),
+        ];
+        yield 'terminal resized' => [
+            "\x1B]php-tui-resize\x07",
+            new TerminalResizedEvent(),
         ];
         /// Tab key.
         yield 'Tab' => [
