@@ -234,4 +234,6 @@ See the example `testable.php` in `examples/`.
 
 ## Contributing
 
+Before opening a pull request, please run `composer integrate` locally to ensure code style and static analysis pass - otherwise the CI will block your PR.
+
 PRs for missing functionalities and improvements are charactr.
