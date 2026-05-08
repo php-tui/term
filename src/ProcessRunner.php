@@ -6,6 +6,9 @@ namespace PhpTui\Term;
 
 interface ProcessRunner
 {
+    public function __sleep():array;
+    public function __wakeup(): void;
+
     /**
      * @param string[] $command
      */
